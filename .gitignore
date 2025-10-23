@@ -65,3 +65,8 @@ projectile-bookmarks.eld
 *.orig
 
 lisp/secret.el
+/custom.el
+/eclipse.jdt.ls/
+/games/
+/recentf
+/tutorial/
