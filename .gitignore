@@ -1,0 +1,67 @@
+# ------------------------------
+# Emacs backup and auto-save files
+# ------------------------------
+*~
+\#*\#
+.\#*
+*.swp
+*.swo
+*.swn
+
+# ------------------------------
+# Compiled files
+# ------------------------------
+*.elc
+eln-cache/
+
+# ------------------------------
+# Doom Emacs caches and local state
+# ------------------------------
+.local/
+var/
+bin/
+.cache/
+undo-tree-history/
+.history
+.elpa/
+tramp/
+transient/
+elpa
+tree-sitter
+tramp
+history
+ac-comphist.dat
+
+# ------------------------------
+# LSP and language server files
+# ------------------------------
+.lsp-session-v1
+
+# ------------------------------
+# Projectile
+# ------------------------------
+.projectile
+projectile-bookmarks.eld
+
+# ------------------------------
+# Org mode
+# ------------------------------
+*.org~
+*.org_archive
+
+# ------------------------------
+# Session / desktop
+# ------------------------------
+.desktop
+.desktop-*
+.session
+.session-*
+
+# ------------------------------
+# Misc editor files
+# ------------------------------
+.DS_Store
+*.log
+*.orig
+
+lisp/secret.el
