@@ -66,6 +66,9 @@
          ("C-h B" . embark-bindings))
   :init (setq prefix-help-command #'embark-prefix-help-command))
 
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
 (use-package embark-consult
   :after (embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
@@ -269,7 +272,7 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook))
-(use-package jetbrains-dracula)
+(use-package jetbrains-darcula-theme)
 
 (use-package pyvenv)
 (use-package fancy-compilation)
