@@ -110,7 +110,6 @@ The main entry point that loads all other configuration modules.
 (load "ui")
 (load "keybindings")
 (load "treesitter")
-(load "secret")
 
 ;; Custom file configuration
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -527,10 +526,6 @@ All custom keybindings organized by category.
 ** Dired
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
-;; For single click with mouse-1
-(define-key dired-mode-map [mouse-1] 'dired-mouse-find-file)
-;; For double click with mouse-2 (optional)
-(define-key dired-mode-map [double-mouse-1] 'dired-mouse-find-file)
 #+end_src
 
 * UI Configuration (lisp/ui.el)

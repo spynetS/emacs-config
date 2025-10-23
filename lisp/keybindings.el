@@ -31,7 +31,4 @@
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)
 
-;; For single click with mouse-1
-(define-key dired-mode-map [mouse-1] 'dired-mouse-find-file)
-;; For double click with mouse-2 (optional)
-(define-key dired-mode-map [double-mouse-1] 'dired-mouse-find-file)
+
