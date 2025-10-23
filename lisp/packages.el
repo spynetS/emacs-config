@@ -274,3 +274,6 @@
 (use-package jetbrains-darcula-theme)
 (use-package pyvenv)
 (use-package fancy-compilation)
+
+(use-package mlscroll)
+(use-package good-scroll)

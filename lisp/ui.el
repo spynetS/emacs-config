@@ -6,6 +6,9 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+(mlscroll-mode)
+(good-scroll-mode)
+
 (setq display-line-numbers 'relative)
 (global-display-line-numbers-mode 1)
 (global-hl-line-mode +1)          ;; highlight current line

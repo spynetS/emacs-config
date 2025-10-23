@@ -533,15 +533,24 @@ All custom keybindings organized by category.
 Visual and interface settings.
 
 ** Basic UI Settings
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+  (use-package mlscroll)
+  (use-package good-scroll)
+#+end_src
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
-(setq inhibit-startup-message t  ; Don't show the splash screen
-      visible-bell t)            ; Flash when the bell rings
+  (setq inhibit-startup-message t  ; Don't show the splash screen
+        visible-bell t)            ; Flash when the bell rings
 
-;; Disable unnecessary UI elements
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+  ;; Disable unnecessary UI elements
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+
+  (mlscroll-mode)
+  (good-scroll-mode)
+
+
 #+end_src
 
 ** Line Numbers & Highlighting
