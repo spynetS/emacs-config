@@ -1,4 +1,4 @@
-(require 'package)						
+(require 'package)
 
 ;; Add package archives
 (setq package-archives
@@ -13,13 +13,12 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-
+;; Install use-package if not already installed
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
 
 (use-package magit
   :ensure t
@@ -42,6 +41,7 @@
   (setq completion-styles '(orderless)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
+
 ;; Persist history over Emacs restarts
 (use-package savehist
   :init
@@ -75,6 +75,7 @@
 
 (use-package treemacs)
 (use-package fold-this)
+(use-package projectile)
 
 (use-package web-mode
   :ensure t
@@ -89,7 +90,6 @@
    ("\\.erb\\'" . web-mode)
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
-
 
 (use-package lsp-mode
   :hook ((java-mode . lsp))
@@ -131,13 +131,12 @@
   (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
         lsp-java-format-settings-profile "GoogleStyle"))
 
-(use-package projectile)
-
 (use-package all-the-icons :if (display-graphic-p))
 
 (use-package doom-themes
   :init
   (load-theme 'doom-one t))
+
 (use-package doom-modeline
   :init
   (doom-modeline-mode 1)
@@ -149,7 +148,6 @@
   (doom-modeline-minor-modes nil)
   (doom-modeline-indent-info t)
   (doom-modeline-icon t))  ;; requires all-the-icons package
-
 
 (use-package multiple-cursors)
 
@@ -167,7 +165,7 @@
          (jtsx-typescript-mode . hs-minor-mode))
   :custom
   ;; Optional customizations
-	(js-indent-level 4)
+  (js-indent-level 4)
   ;; (typescript-ts-mode-indent-offset 2)
   ;; (jtsx-switch-indent-offset 0)
   ;; (jtsx-indent-statement-block-regarding-standalone-parent nil)
@@ -206,11 +204,10 @@
   (add-hook 'jtsx-jsx-mode-hook 'jtsx-bind-keys-to-jtsx-jsx-mode-map)
   (add-hook 'jtsx-tsx-mode-hook 'jtsx-bind-keys-to-jtsx-tsx-mode-map))
 
-
 (use-package rainbow-delimiters)
 (use-package smartparens)
-
 (use-package kdl-mode)
+
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
 
@@ -228,10 +225,10 @@
       compilation-ask-about-save nil
       compilation-auto-jump-to-first-error t)
 
-
 ;; adds a frame in the middle where we use vertico
 (use-package posframe
   :ensure t)
+
 (use-package vertico-posframe
   :after vertico posframe
   :ensure t
@@ -260,6 +257,7 @@
 (use-package ace-window)
 (use-package all-the-icons)
 (use-package all-the-icons-ibuffer)
+
 ;;(use-package eglot
 ;;  :ensure t
 ;;  :hook (java-mode . eglot-ensure)
@@ -272,7 +270,7 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook))
-(use-package jetbrains-darcula-theme)
 
+(use-package jetbrains-darcula-theme)
 (use-package pyvenv)
 (use-package fancy-compilation)
