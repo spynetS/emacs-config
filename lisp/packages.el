@@ -91,45 +91,47 @@
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 
-(use-package lsp-mode
-  :hook ((java-mode . lsp))
-  :commands lsp
-  :config
-  (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-        lsp-enable-snippet t
-        lsp-completion-provider :capf))
+  (use-package lsp-mode
+    :hook ((java-mode . lsp))
+    :commands lsp
+    :config
+    (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+          lsp-enable-snippet t
+          lsp-completion-provider :capf))
 
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-enable t
-        lsp-ui-sideline-enable t
-        lsp-ui-sideline-show-code-actions t))
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :config
+    (setq lsp-ui-doc-enable t
+          lsp-ui-sideline-enable t
+          lsp-ui-sideline-show-code-actions t))
 
-(use-package lsp-treemacs
-  :after lsp)
+  (use-package lsp-treemacs
+    :after lsp)
 
-(use-package company
-  :hook ((java-mode . company-mode))
-  :config
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.0))
+  (use-package company
+    :hook ((java-mode . company-mode))
+    :config
+    (setq company-minimum-prefix-length 1
+          company-idle-delay 0.0))
 
-(use-package dap-mode
-  :after lsp-mode
-  :config
-  (dap-auto-configure-mode)
-  ;; Enable java debugging support
-  (require 'dap-java))
+  (use-package dap-mode
+    :after lsp-mode
+    :config
+    (dap-auto-configure-mode)
+    ;; Enable java debugging support
+    (require 'dap-java))
 
-;; LSP Java
-(use-package lsp-java
-  :after lsp
-  :config
-  (add-hook 'java-mode-hook #'lsp)
-  ;; Optional: auto import
-  (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
-        lsp-java-format-settings-profile "GoogleStyle"))
+  ;; LSP Java
+  (use-package lsp-java
+    :after lsp
+    :config
+    (add-hook 'java-mode-hook #'lsp)
+    ;; Optional: auto import
+    (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
+          lsp-java-format-settings-profile "GoogleStyle"))
+
+  (use-package java-snippets)
 
 (use-package all-the-icons :if (display-graphic-p))
 
@@ -275,5 +277,8 @@
 (use-package pyvenv)
 (use-package fancy-compilation)
 
-(use-package mlscroll)
-(use-package good-scroll)
+(use-package yasnippet)
+(yas-global-mode 1)
+
+  (use-package mlscroll)
+  (use-package good-scroll)

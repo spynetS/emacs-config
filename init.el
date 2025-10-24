@@ -26,6 +26,7 @@
 (load "ui")
 (load "keybindings")
 (load "treesitter")
+(load "secret")
 
 ;; Custom file configuration
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
