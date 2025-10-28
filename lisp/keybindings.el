@@ -18,6 +18,8 @@
 (global-set-key (kbd "M-D") 'mc/mark-next-like-this-word)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x 3") #'my/split-window-right-and-focus)
+(global-set-key (kbd "C-x 2") #'my/split-window-below-and-focus)
 
 ;;compile
 (global-set-key (kbd "C-c c c") 'compile)
@@ -31,4 +33,8 @@
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)
 
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map [mouse-1] 'dired-find-alternate-file)))
 
+(put 'dired-find-alternate-file 'disabled nil)

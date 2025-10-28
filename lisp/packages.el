@@ -257,6 +257,7 @@
   (marginalia-mode))
 
 (use-package ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (use-package all-the-icons)
 (use-package all-the-icons-ibuffer)
 

@@ -1,3 +1,14 @@
+(setq compilation-finish-functions
+      (lambda (buf msg)
+        (when (string-match ".*finished" msg)
+          (message "Compilation finished successfully."))))
+
+(setq display-buffer-alist
+      '(("\\*compilation\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (inhibit-same-window . t))))
+
   (setq inhibit-startup-message t  ; Don't show the splash screen
         visible-bell t)            ; Flash when the bell rings
 

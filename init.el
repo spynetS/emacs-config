@@ -1,5 +1,6 @@
 ;; Load custom Emacs Lisp files
 (add-to-list 'load-path "/home/spy/.config/emacs/lisp")
+(setq browse-url-browser-function 'browse-url-firefox)
 
 ;; Java Configuration
 (setenv "JAVA_HOME" "/usr/lib/jvm/java-25-openjdk")

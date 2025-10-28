@@ -1,5 +1,5 @@
 #+TITLE: Emacs Configuration
-#+AUTHOR: Your Name
+#+AUTHOR: Alfred Roos
 #+PROPERTY: header-args:emacs-lisp :mkdirp yes
 #+STARTUP: overview
 
@@ -84,6 +84,7 @@ The main entry point that loads all other configuration modules.
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
 ;; Load custom Emacs Lisp files
 (add-to-list 'load-path "/home/spy/.config/emacs/lisp")
+(setq browse-url-browser-function 'browse-url-firefox)
 
 ;; Java Configuration
 (setenv "JAVA_HOME" "/usr/lib/jvm/java-25-openjdk")
@@ -403,6 +404,23 @@ All package declarations and configurations.
       compilation-auto-jump-to-first-error t)
 #+end_src
 
+#+begin_src emacs-lisp ~/.config/emacs/lisp/ui.el
+
+(defun my/split-window-right-and-focus ()
+  "Split the window vertically and move focus to the new one."
+  (interactive)
+  (split-window-right)
+  (other-window 1))
+
+(defun my/split-window-below-and-focus ()
+  "Split the window vertically and move focus to the new one."
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+
+
+#+end_src
+
 ** Enhanced Completion UI
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
@@ -440,6 +458,7 @@ All package declarations and configurations.
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (use-package all-the-icons)
 (use-package all-the-icons-ibuffer)
 
@@ -500,6 +519,8 @@ All custom keybindings organized by category.
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x 3") #'my/split-window-right-and-focus)
+(global-set-key (kbd "C-x 2") #'my/split-window-below-and-focus)
 #+end_src
 
 ** Compilation
@@ -510,6 +531,20 @@ All custom keybindings organized by category.
 (global-set-key (kbd "C-c c C") 'recompile)
 (global-set-key (kbd "C-c p c c") 'projectile-compile-project)
 (global-set-key [f10] 'recompile)
+#+end_src
+
+Makes so the cursor doesnt go to compile buffre
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
+(setq compilation-finish-functions
+      (lambda (buf msg)
+        (when (string-match ".*finished" msg)
+          (message "Compilation finished successfully."))))
+
+(setq display-buffer-alist
+      '(("\\*compilation\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (inhibit-same-window . t))))
 #+end_src
 
 ** Window Management
@@ -534,6 +569,12 @@ All custom keybindings organized by category.
 ** Dired
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map [mouse-1] 'dired-find-alternate-file)))
+
+(put 'dired-find-alternate-file 'disabled nil)
+
 #+end_src
 
 * UI Configuration (lisp/ui.el)
