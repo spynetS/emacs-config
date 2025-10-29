@@ -1,3 +1,15 @@
+(defun my/split-window-right-and-focus ()
+  "Split the window vertically and move focus to the new one."
+  (interactive)
+  (split-window-right)
+  (other-window 1))
+
+(defun my/split-window-below-and-focus ()
+  "Split the window vertically and move focus to the new one."
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+
 (setq compilation-finish-functions
       (lambda (buf msg)
         (when (string-match ".*finished" msg)

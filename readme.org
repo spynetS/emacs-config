@@ -404,7 +404,7 @@ All package declarations and configurations.
       compilation-auto-jump-to-first-error t)
 #+end_src
 
-#+begin_src emacs-lisp ~/.config/emacs/lisp/ui.el
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 
 (defun my/split-window-right-and-focus ()
   "Split the window vertically and move focus to the new one."
