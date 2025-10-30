@@ -584,7 +584,22 @@ Makes so the cursor doesnt go to compile buffre
 
 ** ETC
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
-  (global-set-key (kbd "C-h l") 'load-theme)
+(global-set-key (kbd "C-h l") 'load-theme)
+
+(defun rc/duplicate-line ()
+  "Duplicate current line"
+  (interactive)
+  (let ((column (- (point) (point-at-bol)))
+        (line (let ((s (thing-at-point 'line t)))
+                (if s (string-remove-suffix "\n" s) ""))))
+    (move-end-of-line 1)
+    (newline)
+    (insert line)
+    (move-beginning-of-line 1)
+    (forward-char column)))
+
+
+(global-set-key (kbd "C-.") 'rc/duplicate-line)
 #+end_src
 
 * UI Configuration (lisp/ui.el)
@@ -908,7 +923,13 @@ s
 ** Dashboard
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
+(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+(setq dashboard-center-content t)
+;;(setq dashboard-startup-banner "~/Pictures/basta.png")
+(setq dashboard-startup-banner "~/.config/emacs/banner.txt")
+(setq dashboard-vertically-center-content t)
 (dashboard-open)
+
 #+end_src
 
 ** Custom Functions

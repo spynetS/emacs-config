@@ -286,6 +286,11 @@
 ;; dired
 (setq dired-listing-switches "-lah --group-directories-first")
 
+(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+(setq dashboard-center-content t)
+;;(setq dashboard-startup-banner "~/Pictures/basta.png")
+(setq dashboard-startup-banner "~/.config/emacs/banner.txt")
+(setq dashboard-vertically-center-content t)
 (dashboard-open)
 
 (defun jetbrains ()
