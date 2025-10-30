@@ -21,16 +21,19 @@
          (window-height . 0.3)
          (inhibit-same-window . t))))
 
-  (setq inhibit-startup-message t  ; Don't show the splash screen
-        visible-bell t)            ; Flash when the bell rings
+(setq inhibit-startup-message t  ; Don't show the splash screen
+      visible-bell t)            ; Flash when the bell rings
 
-  ;; Disable unnecessary UI elements
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
+;; Disable unnecessary UI elements
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
-  (mlscroll-mode)
-  (good-scroll-mode)
+(mlscroll-mode)
+(good-scroll-mode)
+
+(add-to-list 'default-frame-alist '(font . "Iosevka" ))
+(set-face-attribute 'default t :font "Iosevka" :weight 'semi-bold )
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode

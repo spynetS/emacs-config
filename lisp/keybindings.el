@@ -33,8 +33,12 @@
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)
 
+(keymap-set emacs-lisp-mode-map "C-c r" 'eval-buffer)
+
 (add-hook 'dired-mode-hook
           (lambda ()
             (define-key dired-mode-map [mouse-1] 'dired-find-alternate-file)))
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+  (global-set-key (kbd "C-h l") 'load-theme)

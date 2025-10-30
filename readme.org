@@ -561,6 +561,11 @@ Makes so the cursor doesnt go to compile buffre
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)
 #+end_src
 
+** Org mode
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
+(keymap-set emacs-lisp-mode-map "C-c r" 'eval-buffer)
+#+end_src
+
 ** Yassnipet
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package yasnippet)
@@ -577,6 +582,11 @@ Makes so the cursor doesnt go to compile buffre
 
 #+end_src
 
+** ETC
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
+  (global-set-key (kbd "C-h l") 'load-theme)
+#+end_src
+
 * UI Configuration (lisp/ui.el)
 
 Visual and interface settings.
@@ -588,18 +598,19 @@ Visual and interface settings.
 #+end_src
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
-  (setq inhibit-startup-message t  ; Don't show the splash screen
-        visible-bell t)            ; Flash when the bell rings
+(setq inhibit-startup-message t  ; Don't show the splash screen
+      visible-bell t)            ; Flash when the bell rings
 
-  ;; Disable unnecessary UI elements
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
+;; Disable unnecessary UI elements
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
-  (mlscroll-mode)
-  (good-scroll-mode)
+(mlscroll-mode)
+(good-scroll-mode)
 
-
+(add-to-list 'default-frame-alist '(font . "Iosevka" ))
+(set-face-attribute 'default t :font "Iosevka" :weight 'semi-bold )
 #+end_src
 
 ** Org mode
