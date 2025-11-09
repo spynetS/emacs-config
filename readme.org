@@ -367,6 +367,27 @@ All package declarations and configurations.
   (add-hook 'jtsx-tsx-mode-hook 'jtsx-bind-keys-to-jtsx-tsx-mode-map))
 #+end_src
 
+** WEB
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package emmet-mode
+  :ensure t
+  :hook ((html-mode web-mode css-mode) . emmet-mode)
+  :config
+  (setq emmet-expand-jsx-className? t) ;; Optional for React/JSX
+  (setq emmet-move-cursor-between-quotes t))
+
+;;(with-eval-after-load 'emmet-mode
+;;  (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line))
+
+
+(use-package company-web
+  :ensure t
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-web-html))
+
+#+end_src
+
 ** Syntax Highlighting & Editing
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
@@ -481,7 +502,6 @@ All package declarations and configurations.
 (use-package pyvenv)
 (use-package fancy-compilation)
 #+end_src
-
 
 * Keybindings (lisp/keybindings.el)
 
@@ -627,12 +647,12 @@ Visual and interface settings.
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(tab-bar-mode 1)
 
 (mlscroll-mode)
 (good-scroll-mode)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'semi-bold )
+(set-frame-font "Iosevka SemiBold-14" t t)
 #+end_src
 
 ** Org mode

@@ -28,12 +28,12 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(tab-bar-mode 1)
 
 (mlscroll-mode)
 (good-scroll-mode)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'semi-bold )
+(set-frame-font "Iosevka SemiBold-14" t t)
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
@@ -74,8 +74,7 @@
      ("WAIT" . (:foreground "#ecbe7b" :weight bold))
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
-  
-  ;; Agenda
+
   (org-agenda-files (list org-directory))
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)

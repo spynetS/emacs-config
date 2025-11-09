@@ -206,6 +206,23 @@
   (add-hook 'jtsx-jsx-mode-hook 'jtsx-bind-keys-to-jtsx-jsx-mode-map)
   (add-hook 'jtsx-tsx-mode-hook 'jtsx-bind-keys-to-jtsx-tsx-mode-map))
 
+(use-package emmet-mode
+  :ensure t
+  :hook ((html-mode web-mode css-mode) . emmet-mode)
+  :config
+  (setq emmet-expand-jsx-className? t) ;; Optional for React/JSX
+  (setq emmet-move-cursor-between-quotes t))
+
+;;(with-eval-after-load 'emmet-mode
+;;  (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line))
+
+
+(use-package company-web
+  :ensure t
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-web-html))
+
 (use-package rainbow-delimiters)
 (use-package smartparens)
 (use-package kdl-mode)
@@ -226,6 +243,8 @@
 (setq compilation-scroll-output 'first-error
       compilation-ask-about-save nil
       compilation-auto-jump-to-first-error t)
+
+(use-package golden-ratio)
 
 ;; adds a frame in the middle where we use vertico
 (use-package posframe
