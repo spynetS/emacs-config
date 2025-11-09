@@ -34,6 +34,7 @@
 (good-scroll-mode)
 
 (set-frame-font "Iosevka SemiBold-14" t t)
+(add-to-list 'default-frame-alist '(font . "Iosevka-14"))
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
@@ -298,3 +299,21 @@
   (load-theme 'jetbrains-darcula t)
   (projectile-switch-project)
   (treemacs))
+(defun thanos/wtype-text (text)
+  "Process TEXT for wtype, handling newlines properly."
+  (let* ((has-final-newline (string-match-p "\n$" text))
+         (lines (split-string text "\n"))
+         (last-idx (1- (length lines))))
+    (string-join
+     (cl-loop for line in lines
+              for i from 0
+              collect (cond
+                       ;; Last line without final newline
+                       ((and (= i last-idx) (not has-final-newline))
+                        (format "wtype -s 350 \"%s\"" 
+                                (replace-regexp-in-string "\"" "\\\\\"" line)))
+                       ;; Any other line
+                       (t
+                        (format "wtype -s 350 \"%s\" && wtype -k Return" 
+                                (replace-regexp-in-string "\"" "\\\\\"" line)))))
+     " && ")))
