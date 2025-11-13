@@ -33,7 +33,7 @@
 (good-scroll-mode)
 
 (add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'semi-bold )
+(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
@@ -74,8 +74,7 @@
      ("WAIT" . (:foreground "#ecbe7b" :weight bold))
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
-  
-  ;; Agenda
+
   (org-agenda-files (list org-directory))
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
@@ -286,7 +285,7 @@
 ;; dired
 (setq dired-listing-switches "-lah --group-directories-first")
 
-(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+(setq dashboard-banner-logo-title "There is no system but GNU, and Linux is one of its kernels")
 (setq dashboard-center-content t)
 ;;(setq dashboard-startup-banner "~/Pictures/basta.png")
 (setq dashboard-startup-banner "~/.config/emacs/banner.txt")

@@ -482,6 +482,13 @@ All package declarations and configurations.
 (use-package fancy-compilation)
 #+end_src
 
+** ELFEED
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package elfeed)
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "https://planet.emacslife.com/atom.xml"))
+#+end_src
 
 * Keybindings (lisp/keybindings.el)
 
@@ -632,7 +639,7 @@ Visual and interface settings.
 (good-scroll-mode)
 
 (add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'semi-bold )
+(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
 #+end_src
 
 ** Org mode
@@ -933,7 +940,7 @@ s
 ** Dashboard
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
-(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+(setq dashboard-banner-logo-title "There is no system but GNU, and Linux is one of its kernels")
 (setq dashboard-center-content t)
 ;;(setq dashboard-startup-banner "~/Pictures/basta.png")
 (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
@@ -966,6 +973,63 @@ Tree-sitter configuration (file needs to be created if you have one).
 ;;         (python "https://github.com/tree-sitter/tree-sitter-python")))
 #+end_src
 
+* exwm
+#+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
+(use-package exwm
+  :ensure t
+  :config
+  ;; Number of workspaces
+  (setq exwm-workspace-number 4)
+
+  ;; Make class name the buffer name
+  (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
+
+  ;; Global keybindings (these work everywhere)
+  (setq exwm-input-global-keys
+        `(
+          ;; Reset to line-mode (C-c C-k)
+          ([?\s-r] . exwm-reset)
+          ;; Switch workspace
+          ([?\s-w] . exwm-workspace-switch)
+          ;; Launch application
+          ([?\s-&] . (lambda (command)
+    
+                   (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))))
+(defun my-exwm-terminal ()
+  (interactive)
+  (start-process "terminal" nil "kitty"))
+
+(exwm-input-set-key (kbd "s-<return>") 'my-exwm-terminal)
+	
+  ;; Line-mode vs char-mode switching
+  (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
+
+;; Optional: switch workspaces with Super+number
+(dotimes (i exwm-workspace-number)
+  (exwm-input-set-key (kbd (format "s-%d" (1+ i)))
+                      `(lambda () (interactive) (exwm-workspace-switch ,i))))
+
+;; show some info
+(display-battery-mode)
+(display-time)
+(exwm-modeline-mode)
+
+
+;; Enable system tray in EXWM
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+
+;; Optional: configure refresh interval (in seconds)
+(setq exwm-systemtray-refresh-interval 2)
+
+  ;; Enable EXWM
+  (exwm-enable))
+
+
+#+end_src
 * Notes
 
 # - The ~lisp/secret.el~ file is loaded but not included here (for security reasons)

@@ -227,6 +227,8 @@
       compilation-ask-about-save nil
       compilation-auto-jump-to-first-error t)
 
+(use-package golden-ratio)
+
 ;; adds a frame in the middle where we use vertico
 (use-package posframe
   :ensure t)
@@ -277,6 +279,11 @@
 (use-package jetbrains-darcula-theme)
 (use-package pyvenv)
 (use-package fancy-compilation)
+
+(use-package elfeed)
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "https://planet.emacslife.com/atom.xml"))
 
 (use-package yasnippet)
 (yas-global-mode 1)

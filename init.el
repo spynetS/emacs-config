@@ -33,3 +33,56 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(use-package exwm
+  :ensure t
+  :config
+  ;; Number of workspaces
+  (setq exwm-workspace-number 4)
+
+  ;; Make class name the buffer name
+  (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
+
+  ;; Global keybindings (these work everywhere)
+  (setq exwm-input-global-keys
+        `(
+          ;; Reset to line-mode (C-c C-k)
+          ([?\s-r] . exwm-reset)
+          ;; Switch workspace
+          ([?\s-w] . exwm-workspace-switch)
+          ;; Launch application
+          ([?\s-&] . (lambda (command)
+    
+                   (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))))
+(defun my-exwm-terminal ()
+  (interactive)
+  (start-process "terminal" nil "kitty"))
+
+(exwm-input-set-key (kbd "s-<return>") 'my-exwm-terminal)
+	
+  ;; Line-mode vs char-mode switching
+  (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
+
+;; Optional: switch workspaces with Super+number
+(dotimes (i exwm-workspace-number)
+  (exwm-input-set-key (kbd (format "s-%d" (1+ i)))
+                      `(lambda () (interactive) (exwm-workspace-switch ,i))))
+
+;; show some info
+(display-battery-mode)
+(display-time)
+(exwm-modeline-mode)
+
+
+;; Enable system tray in EXWM
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+
+;; Optional: configure refresh interval (in seconds)
+(setq exwm-systemtray-refresh-interval 2)
+
+  ;; Enable EXWM
+  (exwm-enable))

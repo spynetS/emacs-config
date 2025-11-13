@@ -28,7 +28,11 @@
 (global-set-key [f10] 'recompile)
 
 ;; ace-window
-(global-set-key (kbd "C-x o") 'ace-window)
+(defun ace-window-golden-ratio()
+	(interactive)
+	 (ace-window nil)
+	 (golden-ratio))
+(global-set-key (kbd "C-x o") 'ace-window-golden-ratio)
 
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)
