@@ -139,19 +139,19 @@
   :init
   (load-theme 'doom-one t))
 
-(use-package doom-modeline
-  :init
-  (doom-modeline-mode 1)
-  :custom
-  ;; Optional tweaks
-  (doom-modeline-height 25)
-  (doom-modeline-bar-width 3)
-  (doom-modeline-buffer-file-name-style 'truncate-with-project)
-  (doom-modeline-minor-modes nil)
-	(doom-modeline-enable-word-count t)
-  (doom-modeline-indent-info t)
-	(doom-modeline-major-mode-icon t)
-  (doom-modeline-icon t))  ;; requires all-the-icons package
+;;(use-package doom-modeline
+;;  :init
+;;  (doom-modeline-mode 0)
+;;  :custom
+;;  ;; Optional tweaks
+;;  (doom-modeline-height 25)
+;;  (doom-modeline-bar-width 3)
+;;  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+;;  (doom-modeline-minor-modes nil)
+;;	(doom-modeline-enable-word-count t)
+;;  (doom-modeline-indent-info t)
+;;	(doom-modeline-major-mode-icon t)
+;;  (doom-modeline-icon t))  ;; requires all-the-icons package
 
 (use-package centaur-tabs
   :ensure t
@@ -356,9 +356,3 @@
 
   (use-package mlscroll)
   (use-package good-scroll)
-
-(use-package moody
-  :config
-  (moody-replace-mode-line-front-space)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode))

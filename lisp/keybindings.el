@@ -7,8 +7,8 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; fold this
-(global-set-key (kbd "C-c C-f") 'fold-this-all)
-(global-set-key (kbd "C-c C-F") 'fold-this)
+;;(global-set-key (kbd "C-c C-f") 'fold-this-all)
+(global-set-key (kbd "C-c C-f") 'fold-this)
 (global-set-key (kbd "C-c M-f") 'fold-this-unfold-all)
 
 ;; multiple cursor

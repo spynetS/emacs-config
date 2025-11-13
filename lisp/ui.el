@@ -38,6 +38,100 @@
 
 (set-frame-font "Iosevka SemiBold-14" t t)
 
+;; Function to show current workspace in the mode-line
+(defun my/mode-line-workspace ()
+  "Return the current Eyebrowse workspace as a string for the mode-line."
+  (let* ((current-slot (eyebrowse--get 'current-slot))
+         (slots (eyebrowse--get 'window-configs))
+         ;; Optional: mark active workspace
+         (formatted-slots
+          (mapcar (lambda (slot)
+                    (let ((num (car slot)))
+                      (if (= num current-slot)
+                          (propertize (format "[%d]" num)
+                                      'face '(:weight bold :foreground "green"))
+                        (format "%d" num))))
+                  slots)))
+    ;; Join all slots into a string like "1 2 [3] 4"
+    (string-join formatted-slots " ")))
+
+(defun my/mode-line-scroll ()
+  "Return the current scroll position in the buffer as a percentage for the mode-line."
+  (let ((min (point-min))
+        (max (point-max))
+        (pos (point)))
+    (if (= max min)
+        "Top" ;; empty or very small buffer
+      (format "%d%%" (/ (* 100 (- pos min)) (- max min))))))
+
+(defun my/mode-line-wordcount ()
+  "Return the word count of the buffer as a string for the mode-line.
+Only displays for text-like modes (text, org, markdown)."
+  (if (derived-mode-p 'text-mode 'org-mode 'markdown-mode)
+      (format "%dW" (count-words (point-min) (point-max)))
+    "")) ;; return empty string for other modes
+
+(defun my/mode-line-git-branch ()
+  "Return the current Git branch name for the buffer as a string for the mode-line.
+Returns nil if the buffer is not in a Git repository."
+  (when (and buffer-file-name vc-mode)
+    ;; vc-mode format: " Git-branch-name"
+    (let ((backend (vc-backend buffer-file-name)))
+      (when backend
+        (concat "" ;; Unicode branch symbol
+                (substring vc-mode (+ (length backend) 2)))))))
+
+
+(setq-default mode-line-format
+  '(
+    ;; Workspace (Eyebrowse)
+    (:eval (my/mode-line-workspace))
+    " | "
+    
+    ;; **Just use mode-line-buffer-identification**; Moody will style it automatically
+    mode-line-buffer-identification
+    " | "
+    
+    ;; Scroll %
+    (:eval (my/mode-line-scroll))
+    " | "
+    
+    ;; Line number
+    "%l | "
+    
+    ;; Word count
+    (:eval (my/mode-line-wordcount))
+    " | "
+    
+    ;; Space indicator
+    (:eval (if indent-tabs-mode "Tab" "Spc"))
+    " | "
+    
+    ;; Major mode
+    mode-name
+    " | "
+    
+    ;; Minor modes
+    minor-mode-alist
+    " | "
+    
+    ;; Git branch
+    (:eval (my/mode-line-git-branch))
+    " | "
+    
+    ;; Time
+    (:eval (format-time-string "%H:%M"))
+    ))
+
+
+
+
+(require 'moody)
+(moody-replace-mode-line-front-space)
+(moody-replace-mode-line-buffer-identification)
+(moody-replace-vc-mode)
+(setq x-underline-at-descent-line t) ;; optional: underline style
+
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
 
