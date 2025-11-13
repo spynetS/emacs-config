@@ -297,6 +297,11 @@
 (use-package pyvenv)
 (use-package fancy-compilation)
 
+(use-package elfeed)
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "https://planet.emacslife.com/atom.xml"))
+
 (use-package yasnippet)
 (yas-global-mode 1)
 

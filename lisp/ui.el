@@ -33,8 +33,14 @@
 (mlscroll-mode)
 (good-scroll-mode)
 
+<<<<<<< HEAD
+(add-to-list 'default-frame-alist '(font . "Iosevka" ))
+(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
+=======
 (set-frame-font "Iosevka SemiBold-14" t t)
 (add-to-list 'default-frame-alist '(font . "Iosevka-14"))
+
+>>>>>>> 1041962c4043d3064c07724d79a9e237552f94a2
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
@@ -286,7 +292,7 @@
 ;; dired
 (setq dired-listing-switches "-lah --group-directories-first")
 
-(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+(setq dashboard-banner-logo-title "There is no system but GNU, and Linux is one of its kernels")
 (setq dashboard-center-content t)
 ;;(setq dashboard-startup-banner "~/Pictures/basta.png")
 (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
