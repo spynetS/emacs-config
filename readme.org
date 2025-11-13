@@ -291,6 +291,8 @@ All package declarations and configurations.
   :init
   (load-theme 'doom-one t))
 
+(use-package kanagawa-themes)
+
 ;;(use-package doom-modeline
 ;;  :init
 ;;  (doom-modeline-mode 0)
@@ -557,10 +559,13 @@ All package declarations and configurations.
 (setq elfeed-feeds
       '("http://nullprogram.com/feed/"
 				"https://feeds.expressen.se/nyheter/"
-				 "https://fosspost.org/feed"
-				 "https://feeds.feedburner.com/GoogleOpenSourceBlog"
+				"http://irreal.org/blog/"
+				"https://old.reddit.com/r/emacs.rss"
+				"https://fosspost.org/feed"
+				"https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))
 #+end_src
+
 
 * Keybindings (lisp/keybindings.el)
 
@@ -1100,7 +1105,7 @@ s
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 (setq custom-safe-themes t)
-(load-theme 'doom-badger)
+(load-theme 'kanagawa-wave)
 #+end_src
 
 ** Dired Settings
