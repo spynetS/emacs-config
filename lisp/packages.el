@@ -148,19 +148,65 @@
   (doom-modeline-bar-width 3)
   (doom-modeline-buffer-file-name-style 'truncate-with-project)
   (doom-modeline-minor-modes nil)
+	(doom-modeline-enable-word-count t)
   (doom-modeline-indent-info t)
+	(doom-modeline-major-mode-icon t)
   (doom-modeline-icon t))  ;; requires all-the-icons package
+
+(use-package centaur-tabs
+  :ensure t
+  :config
+  (centaur-tabs-mode t)
+	;; Don't show certain buffers as tabs
+  (setq centaur-tabs-excluded-buffers '("*Dashboard*" "*Messages*" "*scratch*"))
+	(setq centaur-tabs-set-icons t)
+	(setq centaur-tabs-icon-enabled t)
+  ;; Enable tabs
+  (centaur-tabs-headline-match)
+  (setq centaur-tabs-cycle-scope 'tabs)
+
+  (setq centaur-tabs-style "rounded"       ;; ← this gives the eyebrow curve
+        centaur-tabs-height 32
+        centaur-tabs-set-icons t
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-set-bar 'over        ;; adds colored bar above tabs
+        centaur-tabs-close-button "✕"
+        centaur-tabs-show-navigation-buttons t)
+  ;; Group buffers by project (optional)
+  (centaur-tabs-group-by-projectile-project))
+
+(global-set-key (kbd "C-<tab>") 'centaur-tabs-forward)
 
 (use-package multiple-cursors)
 
-(use-package eyebrowse)
-(eyebrowse-mode)
+(use-package eyebrowse
+  :ensure t
+  :config
+  ;; Enable eyebrowse
+  (eyebrowse-mode t)
+
+  ;; Optional: start with a specific number of workspaces
+  (setq eyebrowse-new-workspace t)
+
+  ;; Keybindings for quick workspace switching
+  (global-set-key (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+  (global-set-key (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+  (global-set-key (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+  (global-set-key (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+  (global-set-key (kbd "M-0") 'eyebrowse-last-window-config)
+
+  ;; Optional: customize the modeline indicator
+  (setq eyebrowse-mode-line-separator " | ")
+  (setq eyebrowse-new-workspace t)
+  (setq eyebrowse-mode-line-left-delimiter "[")
+  (setq eyebrowse-mode-line-right-delimiter "]")
+  (setq eyebrowse-mode-line-style 'smart))
 
 (use-package jtsx
   :ensure t
   :mode (("\\.jsx?\\'" . jtsx-jsx-mode)
-         ("\\.tsx\\'" . jtsx-tsx-mode)
-         ("\\.ts\\'" . jtsx-typescript-mode))
+         ("\\.tsx\\'" . jtsx-tsx-mode))
+
   :commands jtsx-install-treesit-language
   :hook ((jtsx-jsx-mode . hs-minor-mode)
          (jtsx-tsx-mode . hs-minor-mode)
@@ -300,6 +346,9 @@
 (use-package elfeed)
 (setq elfeed-feeds
       '("http://nullprogram.com/feed/"
+				"https://feeds.expressen.se/nyheter/"
+				 "https://fosspost.org/feed"
+				 "https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))
 
 (use-package yasnippet)
@@ -307,3 +356,9 @@
 
   (use-package mlscroll)
   (use-package good-scroll)
+
+(use-package moody
+  :config
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))

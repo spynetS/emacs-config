@@ -1,4 +1,4 @@
-#+TITLE: Emacs Configuration
+q#+TITLE: Emacs Configuration
 #+AUTHOR: Alfred Roos
 #+PROPERTY: header-args:emacs-lisp :mkdirp yes
 #+STARTUP: overview
@@ -300,8 +300,35 @@ All package declarations and configurations.
   (doom-modeline-bar-width 3)
   (doom-modeline-buffer-file-name-style 'truncate-with-project)
   (doom-modeline-minor-modes nil)
+	(doom-modeline-enable-word-count t)
   (doom-modeline-indent-info t)
+	(doom-modeline-major-mode-icon t)
   (doom-modeline-icon t))  ;; requires all-the-icons package
+
+(use-package centaur-tabs
+  :ensure t
+  :config
+  (centaur-tabs-mode t)
+	;; Don't show certain buffers as tabs
+  (setq centaur-tabs-excluded-buffers '("*Dashboard*" "*Messages*" "*scratch*"))
+	(setq centaur-tabs-set-icons t)
+	(setq centaur-tabs-icon-enabled t)
+  ;; Enable tabs
+  (centaur-tabs-headline-match)
+  (setq centaur-tabs-cycle-scope 'tabs)
+
+  (setq centaur-tabs-style "rounded"       ;; ← this gives the eyebrow curve
+        centaur-tabs-height 32
+        centaur-tabs-set-icons t
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-set-bar 'over        ;; adds colored bar above tabs
+        centaur-tabs-close-button "✕"
+        centaur-tabs-show-navigation-buttons t)
+  ;; Group buffers by project (optional)
+  (centaur-tabs-group-by-projectile-project))
+
+(global-set-key (kbd "C-<tab>") 'centaur-tabs-forward)
+
 #+end_src
 
 ** Editing Enhancements
@@ -309,8 +336,29 @@ All package declarations and configurations.
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package multiple-cursors)
 
-(use-package eyebrowse)
-(eyebrowse-mode)
+(use-package eyebrowse
+  :ensure t
+  :config
+  ;; Enable eyebrowse
+  (eyebrowse-mode t)
+
+  ;; Optional: start with a specific number of workspaces
+  (setq eyebrowse-new-workspace t)
+
+  ;; Keybindings for quick workspace switching
+  (global-set-key (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+  (global-set-key (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+  (global-set-key (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+  (global-set-key (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+  (global-set-key (kbd "M-0") 'eyebrowse-last-window-config)
+
+  ;; Optional: customize the modeline indicator
+  (setq eyebrowse-mode-line-separator " | ")
+  (setq eyebrowse-new-workspace t)
+  (setq eyebrowse-mode-line-left-delimiter "[")
+  (setq eyebrowse-mode-line-right-delimiter "]")
+  (setq eyebrowse-mode-line-style 'smart))
+
 #+end_src
 
 ** JavaScript/TypeScript
@@ -508,10 +556,11 @@ All package declarations and configurations.
 (use-package elfeed)
 (setq elfeed-feeds
       '("http://nullprogram.com/feed/"
+				"https://feeds.expressen.se/nyheter/"
+				 "https://fosspost.org/feed"
+				 "https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))
 #+end_src
-
-
 
 * Keybindings (lisp/keybindings.el)
 
@@ -657,19 +706,26 @@ Visual and interface settings.
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(tab-bar-mode 1)
 
 (mlscroll-mode)
 (good-scroll-mode)
 
-<<<<<<< HEAD
-(add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
-=======
-(set-frame-font "Iosevka SemiBold-14" t t)
 (add-to-list 'default-frame-alist '(font . "Iosevka-14"))
+;;(add-to-list 'default-frame-alist '(font . "Iosevka" ))
+(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
 
->>>>>>> 1041962c4043d3064c07724d79a9e237552f94a2
+(set-frame-font "Iosevka SemiBold-14" t t)
+
+#+end_src
+** Modeline
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package moody
+  :config
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+
+
 #+end_src
 
 ** Org mode
@@ -957,7 +1013,7 @@ s
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 (setq custom-safe-themes t)
-(load-theme 'doom-dark+)
+(load-theme 'doom-badger)
 #+end_src
 
 ** Dired Settings
@@ -1064,25 +1120,6 @@ then when you are done editing it replaced the text
 		     (delete-frame)))))
 #+end_src
 
-* EMMS
-#+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-(use-package emms
-  :config
-  (emms-all)
-  (emms-default-players)
-  (emms-history-load))
-
-(use-package emms-player-spotify
-  :straight (emms-player-spotify :type git :host github :repo "sarg/emms-spotify")
-
-  :custom
-  (emms-player-spotify-launch-cmd "flatpak run com.spotify.Client")
-  (emms-player-spotify-adblock t)
-
-  :config
-  (add-to-list 'emms-player-list emms-player-spotify))
-#+end_src
-
 * Tree-sitter (lisp/treesitter.el)
 
 Tree-sitter configuration (file needs to be created if you have one).
@@ -1138,7 +1175,7 @@ Tree-sitter configuration (file needs to be created if you have one).
 ;; show some info
 (display-battery-mode)
 (display-time)
-(exwm-modeline-mode)
+;;(exwm-modeline-mode)
 
 
 ;; Enable system tray in EXWM

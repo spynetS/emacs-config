@@ -28,19 +28,15 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(tab-bar-mode 1)
 
 (mlscroll-mode)
 (good-scroll-mode)
 
-<<<<<<< HEAD
-(add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
-=======
-(set-frame-font "Iosevka SemiBold-14" t t)
 (add-to-list 'default-frame-alist '(font . "Iosevka-14"))
+;;(add-to-list 'default-frame-alist '(font . "Iosevka" ))
+(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
 
->>>>>>> 1041962c4043d3064c07724d79a9e237552f94a2
+(set-frame-font "Iosevka SemiBold-14" t t)
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
@@ -287,7 +283,7 @@
 (setq web-mode-enable-auto-pairing t)
 
 (setq custom-safe-themes t)
-(load-theme 'doom-dark+)
+(load-theme 'doom-badger)
 
 ;; dired
 (setq dired-listing-switches "-lah --group-directories-first")

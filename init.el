@@ -81,22 +81,6 @@
 		      (thanos/wtype-text (buffer-string)))
 		     (delete-frame)))))
 
-(use-package emms
-  :config
-  (emms-all)
-  (emms-default-players)
-  (emms-history-load))
-
-(use-package emms-player-spotify
-  :straight (emms-player-spotify :type git :host github :repo "sarg/emms-spotify")
-
-  :custom
-  (emms-player-spotify-launch-cmd "flatpak run com.spotify.Client")
-  (emms-player-spotify-adblock t)
-
-  :config
-  (add-to-list 'emms-player-list emms-player-spotify))
-
 (use-package exwm
   :ensure t
   :config
@@ -137,7 +121,7 @@
 ;; show some info
 (display-battery-mode)
 (display-time)
-(exwm-modeline-mode)
+;;(exwm-modeline-mode)
 
 
 ;; Enable system tray in EXWM
