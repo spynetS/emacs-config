@@ -1169,6 +1169,10 @@ s
                                 (replace-regexp-in-string "\"" "\\\\\"" line)))))
      " && ")))
 
+(defun edit ()
+  "Open emcas config in a new buffer."
+  (interactive)
+  (find-file (concat (getenv "HOME") "/.config/emacs/readme.org")))
 
 #+end_src
 * Emacs everwhere

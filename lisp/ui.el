@@ -413,3 +413,8 @@ Returns nil if the buffer is not in a Git repository."
                         (format "wtype -s 350 \"%s\" && wtype -k Return" 
                                 (replace-regexp-in-string "\"" "\\\\\"" line)))))
      " && ")))
+
+(defun edit ()
+  "Open emcas config in a new buffer."
+  (interactive)
+  (find-file (concat (getenv "HOME") "/.config/emacs/readme.org")))
