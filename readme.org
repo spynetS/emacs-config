@@ -1,4 +1,4 @@
-m#+TITLE: Emacs Configuration
+#+TITLE: Emacs Configuration
 #+AUTHOR: Alfred Roos
 #+PROPERTY: header-args:emacs-lisp :mkdirp yes
 #+STARTUP: overview
