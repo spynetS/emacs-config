@@ -22,6 +22,11 @@
 ;; LSP performance optimization
 (setq gc-cons-threshold 100000000) ;; 100 MB
 
+(setq password-cache t)
+(setq password-cache-expiry 3600) ;; 1 hour
+
+(setq truncate-lines t)
+
 ;; Load configuration modules
 (load "packages")
 (load "ui")

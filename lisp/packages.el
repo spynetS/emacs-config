@@ -139,6 +139,8 @@
   :init
   (load-theme 'doom-one t))
 
+(use-package kanagawa-themes)
+
 ;;(use-package doom-modeline
 ;;  :init
 ;;  (doom-modeline-mode 0)
@@ -347,8 +349,10 @@
 (setq elfeed-feeds
       '("http://nullprogram.com/feed/"
 				"https://feeds.expressen.se/nyheter/"
-				 "https://fosspost.org/feed"
-				 "https://feeds.feedburner.com/GoogleOpenSourceBlog"
+				"http://irreal.org/blog/"
+				"https://old.reddit.com/r/emacs.rss"
+				"https://fosspost.org/feed"
+				"https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))
 
 (use-package yasnippet)

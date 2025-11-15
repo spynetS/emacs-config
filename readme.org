@@ -106,6 +106,11 @@ The main entry point that loads all other configuration modules.
 ;; LSP performance optimization
 (setq gc-cons-threshold 100000000) ;; 100 MB
 
+(setq password-cache t)
+(setq password-cache-expiry 3600) ;; 1 hour
+
+(setq truncate-lines t)
+
 ;; Load configuration modules
 (load "packages")
 (load "ui")
@@ -566,6 +571,15 @@ All package declarations and configurations.
         "https://planet.emacslife.com/atom.xml"))
 #+end_src
 
+** Request
+#+begin_src emacs-lisp
+(request "http://httpbin.org/get"
+  :params '(("key" . "value") ("key2" . "value2"))
+  :parser 'json-read
+  :success (cl-function
+            (lambda (&key data &allow-other-keys)
+              (message "I sent: %S" (assoc-default 'args data)))))  
+#+end_src
 
 * Keybindings (lisp/keybindings.el)
 
