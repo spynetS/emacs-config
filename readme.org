@@ -571,6 +571,19 @@ All package declarations and configurations.
         "https://planet.emacslife.com/atom.xml"))
 #+end_src
 
+** GPTEL
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package gptel)
+;; :key can be a function that returns the API key.
+(defvar gemini-api-key nil
+  "Gemini API key loaded from a secure untracked location.")
+;; Load it from env or a separate file:
+(unless gemini-api-key
+  (setq gemini-api-key (getenv "GEMINI_API_KEY")))
+
+(gptel-make-gemini "Gemini" :key gemini-api-key :stream t)
+#+end_src
+
 ** Request
 #+begin_src emacs-lisp
 (request "http://httpbin.org/get"
