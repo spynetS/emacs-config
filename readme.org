@@ -1318,6 +1318,11 @@ Tree-sitter configuration (file needs to be created if you have one).
 * Notes
 
 # - The ~lisp/secret.el~ file is loaded but not included here (for security reasons)
+
+# - (setq wakatime-api-key "")
+# - (setq gemini-api-key "")
+
+
 - Make sure to run ~M-x all-the-icons-install-fonts~ after first setup
 - For LSP Java, ensure you have a Java language server installed
 - Run ~M-x jtsx-install-treesit-language~ to install tree-sitter grammars for JavaScript/TypeScript
