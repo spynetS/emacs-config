@@ -363,8 +363,6 @@
 (unless gemini-api-key
   (setq gemini-api-key (getenv "GEMINI_API_KEY")))
 
-(setq gemini-api-key "AIzaSyAY28L8SvLLMpLumrYeKVvtDVdaHp9jItQ")
-
 (gptel-make-gemini "Gemini" :key gemini-api-key :stream t)
 
 (use-package yasnippet)
