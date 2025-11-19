@@ -172,7 +172,7 @@ Returns nil if the buffer is not in a Git repository."
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
 
-(org-agenda-files (list org-directory))
+  (org-agenda-files (list org-directory))
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
