@@ -720,6 +720,23 @@ Makes so the cursor doesnt go to compile buffre
 (global-set-key (kbd "C-.") 'rc/duplicate-line)
 #+end_src
 
+** increment
+#+begin_src emacs-lisp
+  (defun increment()
+	(interactive)
+ 	(let* ((bounds (bounds-of-thing-at-point 'number)))
+		(if bounds
+				(let* (
+				 (beg (car bounds))
+				 (end (cdr bounds))
+				 (deleted (delete-and-extract-region beg end)))
+		(insert (format "%s" (amnt+ (string-to-number deleted))))))
+))
+
+(global-set-key (kbd "C-i") 'increment)
+(global-set-key (kbd "C-i") 'increment)
+#+end_src
+
 * UI Configuration (lisp/ui.el)
 
 Visual and interface settings.
