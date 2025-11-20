@@ -61,3 +61,19 @@
 
 
 (global-set-key (kbd "C-.") 'rc/duplicate-line)
+
+  (defun increment(amnt)
+	(interactive)
+ 	(let ((bounds (bounds-of-thing-at-point 'number)))
+		(if bounds
+				(let* (
+				 (beg (car bounds))
+				 (end (cdr bounds))
+				 (deleted (delete-and-extract-region beg end)))
+		(insert (format "%s" ( + amnt (string-to-number deleted))))))
+))
+
+(global-set-key (kbd "C-i")
+                (lambda () (interactive) (increment 1)))
+(global-set-key (kbd "C-S-i")
+                (lambda () (interactive) (increment -1)))

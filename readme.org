@@ -722,7 +722,7 @@ Makes so the cursor doesnt go to compile buffre
 #+end_src
 
 ** increment
-#+begin_src emacs-lisp :tangle ~/.config/emcas/lisp/keybindings.el
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
   (defun increment(amnt)
 	(interactive)
  	(let ((bounds (bounds-of-thing-at-point 'number)))
