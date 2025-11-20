@@ -721,20 +721,22 @@ Makes so the cursor doesnt go to compile buffre
 #+end_src
 
 ** increment
-#+begin_src emacs-lisp
-  (defun increment()
+#+begin_src emacs-lisp :tangle ~/.config/emcas/lisp/keybindings.el
+  (defun increment(amnt)
 	(interactive)
- 	(let* ((bounds (bounds-of-thing-at-point 'number)))
+ 	(let ((bounds (bounds-of-thing-at-point 'number)))
 		(if bounds
 				(let* (
 				 (beg (car bounds))
 				 (end (cdr bounds))
 				 (deleted (delete-and-extract-region beg end)))
-		(insert (format "%s" (amnt+ (string-to-number deleted))))))
+		(insert (format "%s" ( + amnt (string-to-number deleted))))))
 ))
 
-(global-set-key (kbd "C-i") 'increment)
-(global-set-key (kbd "C-i") 'increment)
+(global-set-key (kbd "C-i")
+                (lambda () (interactive) (increment 1)))
+(global-set-key (kbd "C-S-i")
+                (lambda () (interactive) (increment -1)))
 #+end_src
 
 * UI Configuration (lisp/ui.el)
@@ -851,6 +853,8 @@ Returns nil if the buffer is not in a Git repository."
     
     ;; Time
     (:eval (format-time-string "%H:%M"))
+		" | "
+		(:eval (format-time-string "%A(%d) %B V%W "))
     ))
 
 
@@ -1205,6 +1209,14 @@ s
   (find-file (concat (getenv "HOME") "/.config/emacs/readme.org")))
 
 #+end_src
+* Custom funcs
+#+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
+(defun today()
+	(interactive)
+	(message (format-time-string "%A(%d) %B V%W ")))
+
+#+end_src
+
 * Emacs everwhere
 This is a script that lets you edit any text by opening the text in a emacs buffer
 then when you are done editing it replaced the text
@@ -1260,7 +1272,7 @@ then when you are done editing it replaced the text
 		     (delete-frame)))))
 #+end_src
 
-* Tree-sitter (lisp/treesitter.el)
+* Tree-sitter (alisp/treesitter.el)
 
 Tree-sitter configuration (file needs to be created if you have one).
 

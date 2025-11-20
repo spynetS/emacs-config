@@ -39,6 +39,10 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(defun today()
+	(interactive)
+	(message (format-time-string "%A(%d) %B V%W ")))
+
 (defun thanos/wtype-text (text)
   "Process TEXT for wtype, handling newlines properly."
   (let* ((has-final-newline (string-match-p "\n$" text))
