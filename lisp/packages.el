@@ -295,8 +295,8 @@
 (use-package golden-ratio)
 
 ;; adds a frame in the middle where we use vertico
-(use-package posframe
-  :ensure t)
+;;(use-package posframe
+;;  :ensure t)
 
 (use-package vertico-posframe
   :after vertico posframe
@@ -359,11 +359,8 @@
 ;; :key can be a function that returns the API key.
 (defvar gemini-api-key nil
   "Gemini API key loaded from a secure untracked location.")
-;; Load it from env or a separate file:
-(unless gemini-api-key
-  (setq gemini-api-key (getenv "GEMINI_API_KEY")))
-
-(gptel-make-gemini "Gemini" :key gemini-api-key :stream t)
+(gptel-make-gemini "gemini-2.5-flash-lite" :key gemini-api-key :stream t)
+(setq gptel-backend (gptel-get-backend "gemini-2.5-flash-lite"))
 
 (use-package yasnippet)
 (yas-global-mode 1)

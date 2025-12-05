@@ -73,7 +73,7 @@
 		(insert (format "%s" ( + amnt (string-to-number deleted))))))
 ))
 
-(global-set-key (kbd "C-i")
-                (lambda () (interactive) (increment 1)))
 (global-set-key (kbd "C-S-i")
+                (lambda () (interactive) (increment 1)))
+(global-set-key (kbd "C-M-S-i")
                 (lambda () (interactive) (increment -1)))

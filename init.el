@@ -40,9 +40,35 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(setq compilation-jump-to-first-error nil)
+(require 'ansi-color)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+
+  (load "c3-mode.el")
+
 (defun today()
 	(interactive)
 	(message (format-time-string "%A(%d) %B V%W ")))
+
+(defun erofi ()
+  "Prompt using Vertico to run an executable from /usr/bin in a temporary frame."
+  (interactive)
+  ;; Set a temporary frame title
+  (let ((frame (selected-frame))
+        (files (seq-filter
+                (lambda (f)
+                  (file-executable-p (concat "/usr/bin/" f)))
+                (directory-files "/usr/bin" nil "^[^.].*"))))
+    (unwind-protect
+        (progn
+          (set-frame-parameter frame 'name "erofi") ;; set WM title
+          ;; Prompt for executable
+          (let ((choice (completing-read "Run: " files nil t)))
+            (when (and choice (not (string= choice "")))
+              ;; Run asynchronously
+              (async-shell-command choice))))
+       (delete-frame frame)
+      )))
 
 (defun thanos/wtype-text (text)
   "Process TEXT for wtype, handling newlines properly."
