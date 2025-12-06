@@ -295,8 +295,8 @@
 (use-package golden-ratio)
 
 ;; adds a frame in the middle where we use vertico
-;;(use-package posframe
-;;  :ensure t)
+(use-package posframe
+  :ensure t)
 
 (use-package vertico-posframe
   :after vertico posframe
@@ -306,7 +306,7 @@
   (vertico-posframe-min-width 50)
   (vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8)))
   :init
-  (vertico-posframe-mode 1))
+  (vertico-posframe-mode 0))
 
 (use-package marginalia
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
