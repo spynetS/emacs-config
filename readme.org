@@ -87,7 +87,7 @@ The main entry point that loads all other configuration modules.
 (setq browse-url-browser-function 'browse-url-firefox)
 
 ;; Java Configuration
-(setenv "JAVA_HOME" "/usr/lib/jvm/java-25-openjdk")
+(setenv "JAVA_HOME" "/usr/lib/jvm/default")
 (setq exec-path (cons (concat (getenv "JAVA_HOME") "/bin") exec-path))
 
 ;; Disable auto-save files
@@ -493,6 +493,21 @@ All package declarations and configurations.
   (marginalia-mode))
 #+end_src
 
+** cuda
+#+begin_src emacs-lisp ~/.config/emacs/lisp/packages.elblack
+(require 'dap-gdb-lldb)
+
+;; Configure CUDA debugger
+(dap-register-debug-template "CUDA C++ gdb"
+														 (list :type "gdb"
+																	 :request "launch"
+																	 :name "CUDA Debug"
+																	 :gdbpath "cuda-gdb"   ;; Path to cuda-gdb
+																	 :target nil           ;; Your compiled program
+																	 :cwd nil))
+
+#+end_src
+
 ** Additional Utilities
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
@@ -596,7 +611,7 @@ All custom keybindings organized by category.
 ;; multiple cursor
 (global-set-key (kbd "C-<") 'mc/mark-next-like-this)
 (global-set-key (kbd "C->") 'mc/mark-previous-like-this)
-(define-key key-translation-map (kbd "M-S-d") (kbd "M-D"))
+
 (define-key key-translation-map (kbd "M-S-d") (kbd "M-D"))
 (global-set-key (kbd "M-D") 'mc/mark-next-like-this-word)
 #+end_src

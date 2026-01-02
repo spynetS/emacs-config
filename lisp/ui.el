@@ -379,7 +379,7 @@ Returns nil if the buffer is not in a Git repository."
 (setq web-mode-enable-auto-pairing t)
 
 (setq custom-safe-themes t)
-(load-theme 'kanagawa-wave)
+(load-theme 'jetbrains-darcula t)
 
 ;; dired
 (setq dired-listing-switches "-lah --group-directories-first")
