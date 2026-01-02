@@ -87,7 +87,7 @@ The main entry point that loads all other configuration modules.
 (setq browse-url-browser-function 'browse-url-firefox)
 
 ;; Java Configuration
-(setenv "JAVA_HOME" "/usr/lib/jvm/java-25-openjdk")
+(setenv "JAVA_HOME" "/usr/lib/jvm/default")
 (setq exec-path (cons (concat (getenv "JAVA_HOME") "/bin") exec-path))
 
 ;; Disable auto-save files
@@ -312,31 +312,6 @@ All package declarations and configurations.
 ;;  (doom-modeline-indent-info t)
 ;;	(doom-modeline-major-mode-icon t)
 ;;  (doom-modeline-icon t))  ;; requires all-the-icons package
-
-(use-package centaur-tabs
-  :ensure t
-  :config
-  (centaur-tabs-mode t)
-	;; Don't show certain buffers as tabs
-  (setq centaur-tabs-excluded-buffers '("*Dashboard*" "*Messages*" "*scratch*"))
-	(setq centaur-tabs-set-icons t)
-	(setq centaur-tabs-icon-enabled t)
-  ;; Enable tabs
-  (centaur-tabs-headline-match)
-  (setq centaur-tabs-cycle-scope 'tabs)
-
-  (setq centaur-tabs-style "rounded"       ;; ← this gives the eyebrow curve
-        centaur-tabs-height 32
-        centaur-tabs-set-icons t
-        centaur-tabs-set-modified-marker t
-        centaur-tabs-set-bar 'over        ;; adds colored bar above tabs
-        centaur-tabs-close-button "✕"
-        centaur-tabs-show-navigation-buttons t)
-  ;; Group buffers by project (optional)
-  (centaur-tabs-group-by-projectile-project))
-
-(global-set-key (kbd "C-<tab>") 'centaur-tabs-forward)
-
 #+end_src
 
 ** Editing Enhancements
@@ -533,6 +508,21 @@ All package declarations and configurations.
   (marginalia-mode))
 #+end_src
 
+** cuda
+#+begin_src emacs-lisp ~/.config/emacs/lisp/packages.elblack
+(require 'dap-gdb-lldb)
+
+;; Configure CUDA debugger
+(dap-register-debug-template "CUDA C++ gdb"
+														 (list :type "gdb"
+																	 :request "launch"
+																	 :name "CUDA Debug"
+																	 :gdbpath "cuda-gdb"   ;; Path to cuda-gdb
+																	 :target nil           ;; Your compiled program
+																	 :cwd nil))
+
+#+end_src
+
 ** Additional Utilities
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
@@ -622,8 +612,8 @@ All custom keybindings organized by category.
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
 ;; multiple cursor
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-next-like-this)
+(global-set-key (kbd "C->") 'mc/mark-previous-like-this)
 (define-key key-translation-map (kbd "M-S-d") (kbd "M-D"))
 (global-set-key (kbd "M-D") 'mc/mark-next-like-this-word)
 #+end_src

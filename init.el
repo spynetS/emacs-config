@@ -3,7 +3,7 @@
 (setq browse-url-browser-function 'browse-url-firefox)
 
 ;; Java Configuration
-(setenv "JAVA_HOME" "/usr/lib/jvm/java-25-openjdk")
+(setenv "JAVA_HOME" "/usr/lib/jvm/default")
 (setq exec-path (cons (concat (getenv "JAVA_HOME") "/bin") exec-path))
 
 ;; Disable auto-save files

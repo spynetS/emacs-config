@@ -12,8 +12,8 @@
 (global-set-key (kbd "C-c M-f") 'fold-this-unfold-all)
 
 ;; multiple cursor
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-next-like-this)
+(global-set-key (kbd "C->") 'mc/mark-previous-like-this)
 (define-key key-translation-map (kbd "M-S-d") (kbd "M-D"))
 (global-set-key (kbd "M-D") 'mc/mark-next-like-this-word)
 

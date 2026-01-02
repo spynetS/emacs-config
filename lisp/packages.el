@@ -155,30 +155,6 @@
 ;;	(doom-modeline-major-mode-icon t)
 ;;  (doom-modeline-icon t))  ;; requires all-the-icons package
 
-(use-package centaur-tabs
-  :ensure t
-  :config
-  (centaur-tabs-mode t)
-	;; Don't show certain buffers as tabs
-  (setq centaur-tabs-excluded-buffers '("*Dashboard*" "*Messages*" "*scratch*"))
-	(setq centaur-tabs-set-icons t)
-	(setq centaur-tabs-icon-enabled t)
-  ;; Enable tabs
-  (centaur-tabs-headline-match)
-  (setq centaur-tabs-cycle-scope 'tabs)
-
-  (setq centaur-tabs-style "rounded"       ;; ← this gives the eyebrow curve
-        centaur-tabs-height 32
-        centaur-tabs-set-icons t
-        centaur-tabs-set-modified-marker t
-        centaur-tabs-set-bar 'over        ;; adds colored bar above tabs
-        centaur-tabs-close-button "✕"
-        centaur-tabs-show-navigation-buttons t)
-  ;; Group buffers by project (optional)
-  (centaur-tabs-group-by-projectile-project))
-
-(global-set-key (kbd "C-<tab>") 'centaur-tabs-forward)
-
 (use-package multiple-cursors)
 
 (use-package eyebrowse
