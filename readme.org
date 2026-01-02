@@ -245,58 +245,43 @@ All package declarations and configurations.
 ** LSP & Java Development
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
-  (use-package lsp-mode
-    :hook ((java-mode . lsp))
-    :commands lsp
-    :config
-    (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-          lsp-enable-snippet t
-          lsp-completion-provider :capf))
+    (use-package lsp-mode
+      :commands lsp
+      :config
+      (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+            lsp-enable-snippet t
+            lsp-completion-provider :capf))
 
-  (use-package lsp-ui
-    :commands lsp-ui-mode
-    :config
-    (setq lsp-ui-doc-enable t
-          lsp-ui-sideline-enable t
-          lsp-ui-sideline-show-code-actions t))
+    (use-package lsp-ui
+      :commands lsp-ui-mode
+      :config
+      (setq lsp-ui-doc-enable t
+            lsp-ui-sideline-enable t
+            lsp-ui-sideline-show-code-actions t))
 
-  (use-package lsp-treemacs
-    :after lsp)
+    (use-package lsp-treemacs
+      :after lsp)
 
-  (use-package company
-    :hook ((java-mode . company-mode))
-    :config
-    (setq company-minimum-prefix-length 1
-          company-idle-delay 0.0))
+    (use-package company
+      :config
+      (setq company-minimum-prefix-length 1
+            company-idle-delay 0.0))
 
-  (use-package dap-mode
-    :after lsp-mode
-    :config
-    (dap-auto-configure-mode)
-    ;; Enable java debugging support
-    (require 'dap-java))
+    (use-package dap-mode
+      :after lsp-mode
+      :config
+      (dap-auto-configure-mode)
+      ;; Enable java debugging support
+      )
 
-  ;; LSP Java
-  (use-package lsp-java
-    :after lsp
-    :config
-    (add-hook 'java-mode-hook #'lsp)
-    ;; Optional: auto import
-    (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
-          lsp-java-format-settings-profile "GoogleStyle"))
-
-  (use-package java-snippets)
+      (use-package java-snippets)
 #+end_src
 
 ** Theme & Visual
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package all-the-icons :if (display-graphic-p))
-
-(use-package doom-themes
-  :init
-  (load-theme 'doom-one t))
-
+(use-package doom-themes)
 (use-package kanagawa-themes)
 
 ;;(use-package doom-modeline
@@ -451,9 +436,9 @@ All package declarations and configurations.
         (help-mode        :align right  :size 0.4 :select f)
         (Man-mode         :align right  :size 0.5 :select f)))
 (shackle-mode 1)
-(setq compilation-scroll-output 'first-error
-      compilation-ask-about-save nil
-      compilation-auto-jump-to-first-error t)
+;; (setq compilation-scroll-output 'first-error
+;;       compilation-ask-about-save nil
+;;       compilation-auto-jump-to-first-error t)
 
 (use-package golden-ratio)
 #+end_src
@@ -582,6 +567,17 @@ All package declarations and configurations.
               (message "I sent: %S" (assoc-default 'args data)))))  
 #+end_src
 
+** Shell
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+  (use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode)
+  ;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
+  ;; line below instead:
+  ;; :hook (eshell-mode-hook . esh-autosuggest-mode)
+  :ensure t)
+#+end_src
+
+
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
@@ -592,6 +588,7 @@ All custom keybindings organized by category.
 ;; Treemacs
 (global-set-key [f8] 'treemacs)
 (global-set-key (kbd "C-c o p") 'treemacs)
+(global-set-key (kbd "C-x p s") 'consult-ripgrep)
 
 ;; Projectile
 (projectile-mode +1)
@@ -613,6 +610,7 @@ All custom keybindings organized by category.
 ;; multiple cursor
 (global-set-key (kbd "C-<") 'mc/mark-next-like-this)
 (global-set-key (kbd "C->") 'mc/mark-previous-like-this)
+
 (define-key key-translation-map (kbd "M-S-d") (kbd "M-D"))
 (global-set-key (kbd "M-D") 'mc/mark-next-like-this-word)
 #+end_src
@@ -632,7 +630,11 @@ All custom keybindings organized by category.
 (global-set-key (kbd "C-c c c") 'compile)
 (global-set-key (kbd "C-c c C") 'recompile)
 (global-set-key (kbd "C-c p c c") 'projectile-compile-project)
+(
 (global-set-key [f10] 'recompile)
+
+
+(keymap-set compilation-mode-map "C-<return>" 'compilation-next-error)
 #+end_src
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
@@ -668,6 +670,13 @@ Makes so the cursor doesnt go to compile buffre
 	 (golden-ratio))
 (global-set-key (kbd "C-x o") 'ace-window-golden-ratio)
 #+end_src
+
+** Shell
+#+begin_src emacs-lisp  :tangle ~/.config/emacs/lisp/keybindings.el
+(global-set-key (kbd "C-c o RET") 'eshell)
+(global-set-key (kbd "C-<return>") 'eshell)
+#+end_src
+
 
 ** LSP
 
@@ -1155,7 +1164,7 @@ s
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 (setq custom-safe-themes t)
-(load-theme 'kanagawa-wave)
+(load-theme 'jetbrains-darcula t)
 #+end_src
 
 ** Dired Settings

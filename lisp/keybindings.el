@@ -1,6 +1,7 @@
 ;; Treemacs
 (global-set-key [f8] 'treemacs)
 (global-set-key (kbd "C-c o p") 'treemacs)
+(global-set-key (kbd "C-x p s") 'consult-ripgrep)
 
 ;; Projectile
 (projectile-mode +1)
@@ -14,6 +15,7 @@
 ;; multiple cursor
 (global-set-key (kbd "C-<") 'mc/mark-next-like-this)
 (global-set-key (kbd "C->") 'mc/mark-previous-like-this)
+
 (define-key key-translation-map (kbd "M-S-d") (kbd "M-D"))
 (global-set-key (kbd "M-D") 'mc/mark-next-like-this-word)
 
@@ -25,7 +27,11 @@
 (global-set-key (kbd "C-c c c") 'compile)
 (global-set-key (kbd "C-c c C") 'recompile)
 (global-set-key (kbd "C-c p c c") 'projectile-compile-project)
+(
 (global-set-key [f10] 'recompile)
+
+
+(keymap-set compilation-mode-map "C-<return>" 'compilation-next-error)
 
 ;; ace-window
 (defun ace-window-golden-ratio()
@@ -33,6 +39,9 @@
 	 (ace-window nil)
 	 (golden-ratio))
 (global-set-key (kbd "C-x o") 'ace-window-golden-ratio)
+
+(global-set-key (kbd "C-c o RET") 'eshell)
+(global-set-key (kbd "C-<return>") 'eshell)
 
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)

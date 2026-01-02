@@ -91,54 +91,39 @@
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 
-  (use-package lsp-mode
-    :hook ((java-mode . lsp))
-    :commands lsp
-    :config
-    (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-          lsp-enable-snippet t
-          lsp-completion-provider :capf))
+    (use-package lsp-mode
+      :commands lsp
+      :config
+      (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+            lsp-enable-snippet t
+            lsp-completion-provider :capf))
 
-  (use-package lsp-ui
-    :commands lsp-ui-mode
-    :config
-    (setq lsp-ui-doc-enable t
-          lsp-ui-sideline-enable t
-          lsp-ui-sideline-show-code-actions t))
+    (use-package lsp-ui
+      :commands lsp-ui-mode
+      :config
+      (setq lsp-ui-doc-enable t
+            lsp-ui-sideline-enable t
+            lsp-ui-sideline-show-code-actions t))
 
-  (use-package lsp-treemacs
-    :after lsp)
+    (use-package lsp-treemacs
+      :after lsp)
 
-  (use-package company
-    :hook ((java-mode . company-mode))
-    :config
-    (setq company-minimum-prefix-length 1
-          company-idle-delay 0.0))
+    (use-package company
+      :config
+      (setq company-minimum-prefix-length 1
+            company-idle-delay 0.0))
 
-  (use-package dap-mode
-    :after lsp-mode
-    :config
-    (dap-auto-configure-mode)
-    ;; Enable java debugging support
-    (require 'dap-java))
+    (use-package dap-mode
+      :after lsp-mode
+      :config
+      (dap-auto-configure-mode)
+      ;; Enable java debugging support
+      )
 
-  ;; LSP Java
-  (use-package lsp-java
-    :after lsp
-    :config
-    (add-hook 'java-mode-hook #'lsp)
-    ;; Optional: auto import
-    (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
-          lsp-java-format-settings-profile "GoogleStyle"))
-
-  (use-package java-snippets)
+      (use-package java-snippets)
 
 (use-package all-the-icons :if (display-graphic-p))
-
-(use-package doom-themes
-  :init
-  (load-theme 'doom-one t))
-
+(use-package doom-themes)
 (use-package kanagawa-themes)
 
 ;;(use-package doom-modeline
@@ -264,9 +249,9 @@
         (help-mode        :align right  :size 0.4 :select f)
         (Man-mode         :align right  :size 0.5 :select f)))
 (shackle-mode 1)
-(setq compilation-scroll-output 'first-error
-      compilation-ask-about-save nil
-      compilation-auto-jump-to-first-error t)
+;; (setq compilation-scroll-output 'first-error
+;;       compilation-ask-about-save nil
+;;       compilation-auto-jump-to-first-error t)
 
 (use-package golden-ratio)
 
@@ -337,6 +322,13 @@
   "Gemini API key loaded from a secure untracked location.")
 (gptel-make-gemini "gemini-2.5-flash-lite" :key gemini-api-key :stream t)
 (setq gptel-backend (gptel-get-backend "gemini-2.5-flash-lite"))
+
+  (use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode)
+  ;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
+  ;; line below instead:
+  ;; :hook (eshell-mode-hook . esh-autosuggest-mode)
+  :ensure t)
 
 (use-package yasnippet)
 (yas-global-mode 1)
