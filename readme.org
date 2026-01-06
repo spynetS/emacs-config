@@ -577,7 +577,6 @@ All package declarations and configurations.
   :ensure t)
 #+end_src
 
-
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
@@ -630,7 +629,7 @@ All custom keybindings organized by category.
 (global-set-key (kbd "C-c c c") 'compile)
 (global-set-key (kbd "C-c c C") 'recompile)
 (global-set-key (kbd "C-c p c c") 'projectile-compile-project)
-(
+
 (global-set-key [f10] 'recompile)
 
 
@@ -676,7 +675,6 @@ Makes so the cursor doesnt go to compile buffre
 (global-set-key (kbd "C-c o RET") 'eshell)
 (global-set-key (kbd "C-<return>") 'eshell)
 #+end_src
-
 
 ** LSP
 
@@ -1117,6 +1115,7 @@ Returns nil if the buffer is not in a Git repository."
 ;;(setq-default tab-width 4)
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 2) ; Assuming you want your tabs to be two spaces wide
+(setq truncate-lines t)
 #+end_src
 
 ** Yes/No Prompt
@@ -1247,6 +1246,12 @@ s
               (async-shell-command choice))))
        (delete-frame frame)
       )))
+
+(defun my/open-file()
+	(interactive)
+	(let ((path (string-trim (thing-at-point 'string t) "\"" "\"")))
+		(message "Opening file %s" path)
+		(find-file path)))
 #+end_src
 
 * Emacs everwhere
