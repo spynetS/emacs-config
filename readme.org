@@ -820,6 +820,8 @@ Returns nil if the buffer is not in a Git repository."
                 (substring vc-mode (+ (length backend) 2)))))))
 
 
+(setq moody-mode-line-height 20)
+
 (setq-default mode-line-format
   '(
     ;; Workspace (Eyebrowse)
