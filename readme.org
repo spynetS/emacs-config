@@ -706,7 +706,7 @@ Makes so the cursor doesnt go to compile buffre
 
 ** ETC
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/keybindings.el
-(global-set-key (kbd "C-h l") 'load-theme)
+(global-set-key (kbd "C-h l") 'consult-theme)
 
 (defun rc/duplicate-line ()
   "Duplicate current line"
@@ -742,6 +742,7 @@ Makes so the cursor doesnt go to compile buffre
 (global-set-key (kbd "C-M-S-i")
                 (lambda () (interactive) (increment -1)))
 #+end_src
+
 
 * UI Configuration (lisp/ui.el)
 
@@ -808,14 +809,12 @@ Only displays for text-like modes (text, org, markdown)."
     "")) ;; return empty string for other modes
 
 (defun my/mode-line-git-branch ()
-  "Return the current Git branch name for the buffer as a string for the mode-line.
-Returns nil if the buffer is not in a Git repository."
-  (when (and buffer-file-name vc-mode)
-    ;; vc-mode format: " Git-branch-name"
-    (let ((backend (vc-backend buffer-file-name)))
-      (when backend
-        (concat "" ;; Unicode branch symbol
-                (substring vc-mode (+ (length backend) 2)))))))
+  "Return current Git branch for mode-line, or nil."
+  (when-let ((file buffer-file-name)
+             (backend (vc-backend file)))
+    (when (eq backend 'Git)
+      (when-let ((branch (vc-git--symbolic-ref file)))
+        (concat " " branch)))))
 
 
 (setq moody-mode-line-height 20)
