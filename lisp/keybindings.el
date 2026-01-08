@@ -27,7 +27,7 @@
 (global-set-key (kbd "C-c c c") 'compile)
 (global-set-key (kbd "C-c c C") 'recompile)
 (global-set-key (kbd "C-c p c c") 'projectile-compile-project)
-(
+
 (global-set-key [f10] 'recompile)
 
 

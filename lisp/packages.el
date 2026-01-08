@@ -309,9 +309,8 @@
 (use-package elfeed)
 (setq elfeed-feeds
       '("http://nullprogram.com/feed/"
-				"https://feeds.expressen.se/nyheter/"
 				"http://irreal.org/blog/"
-				"https://old.reddit.com/r/emacs.rss"
+				"https://archlinux.org/feeds/news/"
 				"https://fosspost.org/feed"
 				"https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))

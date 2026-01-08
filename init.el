@@ -70,6 +70,12 @@
        (delete-frame frame)
       )))
 
+(defun my/open-file()
+	(interactive)
+	(let ((path (string-trim (thing-at-point 'string t) "\"" "\"")))
+		(message "Opening file %s" path)
+		(find-file path)))
+
 (defun thanos/wtype-text (text)
   "Process TEXT for wtype, handling newlines properly."
   (let* ((has-final-newline (string-match-p "\n$" text))

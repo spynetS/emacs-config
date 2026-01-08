@@ -72,15 +72,15 @@ Only displays for text-like modes (text, org, markdown)."
     "")) ;; return empty string for other modes
 
 (defun my/mode-line-git-branch ()
-  "Return the current Git branch name for the buffer as a string for the mode-line.
-Returns nil if the buffer is not in a Git repository."
-  (when (and buffer-file-name vc-mode)
-    ;; vc-mode format: " Git-branch-name"
-    (let ((backend (vc-backend buffer-file-name)))
-      (when backend
-        (concat "" ;; Unicode branch symbol
-                (substring vc-mode (+ (length backend) 2)))))))
+  "Return current Git branch for mode-line, or nil."
+  (when-let ((file buffer-file-name)
+             (backend (vc-backend file)))
+    (when (eq backend 'Git)
+      (when-let ((branch (vc-git--symbolic-ref file)))
+        (concat " " branch)))))
 
+
+(setq moody-mode-line-height 20)
 
 (setq-default mode-line-format
   '(
@@ -357,6 +357,7 @@ Returns nil if the buffer is not in a Git repository."
 ;;(setq-default tab-width 4)
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 2) ; Assuming you want your tabs to be two spaces wide
+(setq truncate-lines t)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
