@@ -54,7 +54,7 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
-(global-set-key (kbd "C-h l") 'load-theme)
+(global-set-key (kbd "C-h l") 'consult-theme)
 
 (defun rc/duplicate-line ()
   "Duplicate current line"

@@ -1164,7 +1164,6 @@ s
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 (setq custom-safe-themes t)
-(load-theme 'jetbrains-darcula t)
 #+end_src
 
 ** Dired Settings

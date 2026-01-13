@@ -1,0 +1,11 @@
+[Unit]
+Description=Start emacs bg daemon
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/emacs --fg-daemon
+
+[Install]
+WantedBy=graphical-session.target
