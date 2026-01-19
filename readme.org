@@ -577,6 +577,12 @@ All package declarations and configurations.
   :ensure t)
 #+end_src
 
+** Dumber jump
+
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package dumber-jump)
+(add-hook 'xref-backend-functions #'dumber-jump-xref-activate)
+  #+end_src
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.

@@ -329,6 +329,9 @@
   ;; :hook (eshell-mode-hook . esh-autosuggest-mode)
   :ensure t)
 
+(use-package dumber-jump)
+(add-hook 'xref-backend-functions #'dumber-jump-xref-activate)
+
 (use-package yasnippet)
 (yas-global-mode 1)
 
