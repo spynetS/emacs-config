@@ -577,6 +577,18 @@ All package declarations and configurations.
   :ensure t)
 #+end_src
 
+** Dumb Jumb
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package dumb-jump
+ :ensure t
+ :config
+ (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+ (setq dumb-jump-force-searcher 'rg)
+ ;; use completion-read instead of a separate buffer with candidates
+ (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+#+end_src
+
+
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
@@ -672,8 +684,26 @@ Makes so the cursor doesnt go to compile buffre
 
 ** Shell
 #+begin_src emacs-lisp  :tangle ~/.config/emacs/lisp/keybindings.el
-(global-set-key (kbd "C-c o RET") 'eshell)
-(global-set-key (kbd "C-<return>") 'eshell)
+(defun eshell-current-directory (&optional directory)
+  "Open eshell current `default-directory' or DIRECTORY."
+  (interactive)
+  (let ((current-dir (or directory default-directory))
+        (eshell-buffer (or (get-buffer "*eshell*")
+                    (eshell))))
+    (switch-to-buffer eshell-buffer)
+    (eshell/cd current-dir)
+    (eshell-next-prompt)
+    ;; Regenerate prompt to show current directory.
+    ;; Avoid sending any half written input commands
+    (if (eobp)
+        (eshell-send-input nil nil nil)
+      (move-end-of-line nil)
+      (eshell-kill-input)
+      (eshell-send-input nil nil nil)
+      (yank))))
+
+(global-set-key (kbd "C-c o RET") 'eshell-current-directory)
+(global-set-key (kbd "C-<return>") 'eshell-current-directory)
 #+end_src
 
 ** LSP

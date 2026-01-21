@@ -40,8 +40,26 @@
 	 (golden-ratio))
 (global-set-key (kbd "C-x o") 'ace-window-golden-ratio)
 
-(global-set-key (kbd "C-c o RET") 'eshell)
-(global-set-key (kbd "C-<return>") 'eshell)
+(defun eshell-current-directory (&optional directory)
+  "Open eshell current `default-directory' or DIRECTORY."
+  (interactive)
+  (let ((current-dir (or directory default-directory))
+        (eshell-buffer (or (get-buffer "*eshell*")
+                    (eshell))))
+    (switch-to-buffer eshell-buffer)
+    (eshell/cd current-dir)
+    (eshell-next-prompt)
+    ;; Regenerate prompt to show current directory.
+    ;; Avoid sending any half written input commands
+    (if (eobp)
+        (eshell-send-input nil nil nil)
+      (move-end-of-line nil)
+      (eshell-kill-input)
+      (eshell-send-input nil nil nil)
+      (yank))))
+
+(global-set-key (kbd "C-c o RET") 'eshell-current-directory)
+(global-set-key (kbd "C-<return>") 'eshell-current-directory)
 
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)

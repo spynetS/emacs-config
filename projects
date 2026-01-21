@@ -1,0 +1,11 @@
+;;; -*- lisp-data -*-
+(("/home/spy/dev/vikbo/") ("/home/spy/dev/cms/")
+ ("/home/spy/dev/westerberg/") ("/home/spy/dev/webbutveckling/")
+ ("/home/spy/dev/fastighetsjournal-v3/") ("/home/spy/dev/3d/")
+ ("/home/spy/dev/Aurora/") ("/home/spy/dev/mysite/")
+ ("/home/spy/Downloads/emacs-30.2/")
+ ("/home/spy/Downloads/webkitgtk-2.41.1/Source/")
+ ("/home/spy/Downloads/webkitgtk-2.40.0/Source/JavaScriptCore/")
+ ("/home/spy/Downloads/webkitgtk-2.40.0/Source/")
+ ("/home/spy/Downloads/webkitgtk-2.40.0/")
+ ("/home/spy/Downloads/webkitgtk-2.40.0/build/"))
