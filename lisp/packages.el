@@ -91,36 +91,36 @@
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 
-    (use-package lsp-mode
-      :commands lsp
-      :config
-      (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-            lsp-enable-snippet t
-            lsp-completion-provider :capf))
+(use-package lsp-mode
+  :commands lsp
+  :config
+  (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+        lsp-enable-snippet t
+        lsp-completion-provider :capf))
 
-    (use-package lsp-ui
-      :commands lsp-ui-mode
-      :config
-      (setq lsp-ui-doc-enable t
-            lsp-ui-sideline-enable t
-            lsp-ui-sideline-show-code-actions t))
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable t
+        lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-code-actions t))
 
-    (use-package lsp-treemacs
-      :after lsp)
+(use-package lsp-treemacs
+  :after lsp)
 
-    (use-package company
-      :config
-      (setq company-minimum-prefix-length 1
-            company-idle-delay 0.0))
+(use-package company
+  :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0))
 
-    (use-package dap-mode
-      :after lsp-mode
-      :config
-      (dap-auto-configure-mode)
-      ;; Enable java debugging support
-      )
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode)
+  ;; Enable java debugging support
+  )
 
-      (use-package java-snippets)
+  (use-package java-snippets)
 
 (use-package all-the-icons :if (display-graphic-p))
 (use-package doom-themes)
@@ -322,12 +322,12 @@
 (gptel-make-gemini "gemini-2.5-flash-lite" :key gemini-api-key :stream t)
 (setq gptel-backend (gptel-get-backend "gemini-2.5-flash-lite"))
 
-  (use-package esh-autosuggest
-  :hook (eshell-mode . esh-autosuggest-mode)
-  ;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
-  ;; line below instead:
-  ;; :hook (eshell-mode-hook . esh-autosuggest-mode)
-  :ensure t)
+(use-package esh-autosuggest
+:hook (eshell-mode . esh-autosuggest-mode)
+;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
+;; line below instead:
+;; :hook (eshell-mode-hook . esh-autosuggest-mode)
+:ensure t)
 
 (use-package dumb-jump
  :ensure t
@@ -340,5 +340,5 @@
 (use-package yasnippet)
 (yas-global-mode 1)
 
-  (use-package mlscroll)
-  (use-package good-scroll)
+(use-package mlscroll)
+(use-package good-scroll)

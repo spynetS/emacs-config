@@ -1,6 +1,7 @@
 ;;; -*- lisp-data -*-
-(("/home/spy/dev/vikbo/") ("/home/spy/dev/cms/")
- ("/home/spy/dev/westerberg/") ("/home/spy/dev/webbutveckling/")
+(("/home/spy/dev/coffice/") ("/home/spy/dev/westerberg/")
+ ("/home/spy/dev/cms/") ("/home/spy/dev/vikbo/")
+ ("/home/spy/dev/webbutveckling/")
  ("/home/spy/dev/fastighetsjournal-v3/") ("/home/spy/dev/3d/")
  ("/home/spy/dev/Aurora/") ("/home/spy/dev/mysite/")
  ("/home/spy/Downloads/emacs-30.2/")

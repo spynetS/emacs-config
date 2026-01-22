@@ -90,14 +90,14 @@ Only displays for text-like modes (text, org, markdown)."
     
     ;; **Just use mode-line-buffer-identification**; Moody will style it automatically
     mode-line-buffer-identification
-    " | "
+    " | Scroll: "
     
     ;; Scroll %
     (:eval (my/mode-line-scroll))
-    " | "
+    " \% | "
     
     ;; Line number
-    "%l | "
+    "Line: %l | Words: "
     
     ;; Word count
     (:eval (my/mode-line-wordcount))
@@ -111,10 +111,6 @@ Only displays for text-like modes (text, org, markdown)."
     mode-name
     " | "
     
-    ;; Minor modes
-    minor-mode-alist
-    " | "
-    
     ;; Git branch
     (:eval (my/mode-line-git-branch))
     " | "
@@ -124,9 +120,6 @@ Only displays for text-like modes (text, org, markdown)."
 		" | "
 		(:eval (format-time-string "%A(%d) %B V%W "))
     ))
-
-
-
 
 (require 'moody)
 (moody-replace-mode-line-front-space)
@@ -174,7 +167,7 @@ Only displays for text-like modes (text, org, markdown)."
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
 
-  (org-agenda-files (list org-directory))
+(org-agenda-files (list org-directory))
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
