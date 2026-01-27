@@ -114,7 +114,7 @@ Only displays for text-like modes (text, org, markdown)."
     ;; Git branch
     (:eval (my/mode-line-git-branch))
     " | "
-    
+  
     ;; Time
     (:eval (format-time-string "%H:%M"))
 		" | "
@@ -383,6 +383,19 @@ Only displays for text-like modes (text, org, markdown)."
 (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
 (setq dashboard-vertically-center-content t)
 (dashboard-open)
+
+(defun my/document ()
+  (interactive)
+  (dolist (theme custom-enabled-themes)
+    (disable-theme theme))
+  (load-theme 'doom-plain t)
+  (display-line-numbers-mode 0)
+  (olivetti-mode 1)
+  (set-face-attribute 'default nil
+                      :font (font-spec
+                             :family "Noto Serif Display"
+                             :weight 'medium
+                             :size 16)))
 
 (defun jetbrains ()
   "Starts jetbrains style"
