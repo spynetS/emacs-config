@@ -588,6 +588,13 @@ All package declarations and configurations.
  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 #+end_src
 
+** TO DO
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package hl-todo)
+(use-package consult-todo)
+#+end_src
+
+
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
