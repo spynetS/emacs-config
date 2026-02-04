@@ -548,12 +548,14 @@ All package declarations and configurations.
 
 ** GPTEL
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
-(use-package gptel)
-;; :key can be a function that returns the API key.
-(defvar gemini-api-key nil
-  "Gemini API key loaded from a secure untracked location.")
-(gptel-make-gemini "gemini-2.5-flash-lite" :key gemini-api-key :stream t)
-(setq gptel-backend (gptel-get-backend "gemini-2.5-flash-lite"))
+  (use-package gptel)
+  ;; :key can be a function that returns the API key.
+  (defvar gemini-api-key nil
+    "Gemini API key loaded from a secure untracked location.")
+  (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
+  (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
+  (setq gptel-default-mode 'org-mode)
+  (setq gptel-default-major-mode 'org-mode)
 
 #+end_src
 

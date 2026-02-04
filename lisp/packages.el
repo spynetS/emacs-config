@@ -319,8 +319,10 @@
 ;; :key can be a function that returns the API key.
 (defvar gemini-api-key nil
   "Gemini API key loaded from a secure untracked location.")
-(gptel-make-gemini "gemini-2.5-flash-lite" :key gemini-api-key :stream t)
-(setq gptel-backend (gptel-get-backend "gemini-2.5-flash-lite"))
+(gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
+(setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
+(setq gptel-default-mode 'org-mode)
+(setq gptel-default-major-mode 'org-mode)
 
 (use-package esh-autosuggest
 :hook (eshell-mode . esh-autosuggest-mode)
@@ -336,6 +338,11 @@
  (setq dumb-jump-force-searcher 'rg)
  ;; use completion-read instead of a separate buffer with candidates
  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+
+(use-package hl-todo
+	:config (global-hl-todo-mode)
+	)
+(use-package consult-todo)
 
 (use-package yasnippet)
 (yas-global-mode 1)

@@ -391,6 +391,7 @@ Only displays for text-like modes (text, org, markdown)."
   (load-theme 'doom-plain t)
   (display-line-numbers-mode 0)
   (olivetti-mode 1)
+	(setq-local line-spacing 0.2)
   (set-face-attribute 'default nil
                       :font (font-spec
                              :family "Noto Serif Display"
