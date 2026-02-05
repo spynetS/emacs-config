@@ -548,12 +548,14 @@ All package declarations and configurations.
 
 ** GPTEL
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
-(use-package gptel)
-;; :key can be a function that returns the API key.
-(defvar gemini-api-key nil
-  "Gemini API key loaded from a secure untracked location.")
-(gptel-make-gemini "gemini-2.5-flash-lite" :key gemini-api-key :stream t)
-(setq gptel-backend (gptel-get-backend "gemini-2.5-flash-lite"))
+  (use-package gptel)
+  ;; :key can be a function that returns the API key.
+  (defvar gemini-api-key nil
+    "Gemini API key loaded from a secure untracked location.")
+  (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
+  (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
+  (setq gptel-default-mode 'org-mode)
+  (setq gptel-default-major-mode 'org-mode)
 
 #+end_src
 
@@ -577,12 +579,26 @@ All package declarations and configurations.
   :ensure t)
 #+end_src
 
-** Dumber jump
-
+** Dumb Jumb
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
-(use-package dumber-jump)
-(add-hook 'xref-backend-functions #'dumber-jump-xref-activate)
-  #+end_src
+(use-package dumb-jump
+ :ensure t
+ :config
+ (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+ (setq dumb-jump-force-searcher 'rg)
+ ;; use completion-read instead of a separate buffer with candidates
+ (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+#+end_src
+
+** TO DO
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package hl-todo
+	:config (global-hl-todo-mode)
+	)
+(use-package consult-todo)
+#+end_src
+
+
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
@@ -678,8 +694,26 @@ Makes so the cursor doesnt go to compile buffre
 
 ** Shell
 #+begin_src emacs-lisp  :tangle ~/.config/emacs/lisp/keybindings.el
-(global-set-key (kbd "C-c o RET") 'eshell)
-(global-set-key (kbd "C-<return>") 'eshell)
+(defun eshell-current-directory (&optional directory)
+  "Open eshell current `default-directory' or DIRECTORY."
+  (interactive)
+  (let ((current-dir (or directory default-directory))
+        (eshell-buffer (or (get-buffer "*eshell*")
+                    (eshell))))
+    (switch-to-buffer eshell-buffer)
+    (eshell/cd current-dir)
+    (eshell-next-prompt)
+    ;; Regenerate prompt to show current directory.
+    ;; Avoid sending any half written input commands
+    (if (eobp)
+        (eshell-send-input nil nil nil)
+      (move-end-of-line nil)
+      (eshell-kill-input)
+      (eshell-send-input nil nil nil)
+      (yank))))
+
+(global-set-key (kbd "C-c o RET") 'eshell-current-directory)
+(global-set-key (kbd "C-<return>") 'eshell-current-directory)
 #+end_src
 
 ** LSP
@@ -748,7 +782,6 @@ Makes so the cursor doesnt go to compile buffre
 (global-set-key (kbd "C-M-S-i")
                 (lambda () (interactive) (increment -1)))
 #+end_src
-
 
 * UI Configuration (lisp/ui.el)
 
