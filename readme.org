@@ -598,6 +598,13 @@ All package declarations and configurations.
 (use-package consult-todo)
 #+end_src
 
+** Olivetti
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package olivetti
+	:config (setq olivetti-body-width 100)
+	)
+(use-package consult-todo)
+#+end_src
 
 * Keybindings (lisp/keybindings.el)
 
@@ -1227,6 +1234,7 @@ s
   (load-theme 'doom-plain t)
   (display-line-numbers-mode 0)
   (olivetti-mode 1)
+	(setq olivetti-body-width 110)
 	(setq-local line-spacing 0.2)
   (set-face-attribute 'default nil
                       :font (font-spec
