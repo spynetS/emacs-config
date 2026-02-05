@@ -913,7 +913,7 @@ Only displays for text-like modes (text, org, markdown)."
      ("WAIT" . (:foreground "#ecbe7b" :weight bold))
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
-
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
 #+end_src
 ** c3-mode
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
