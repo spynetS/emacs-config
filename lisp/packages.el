@@ -91,36 +91,36 @@
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 
-(use-package lsp-mode
-  :commands lsp
-  :config
-  (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-        lsp-enable-snippet t
-        lsp-completion-provider :capf))
+    (use-package lsp-mode
+      :commands lsp
+      :config
+      (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+            lsp-enable-snippet t
+            lsp-completion-provider :capf))
 
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-enable t
-        lsp-ui-sideline-enable t
-        lsp-ui-sideline-show-code-actions t))
+    (use-package lsp-ui
+      :commands lsp-ui-mode
+      :config
+      (setq lsp-ui-doc-enable t
+            lsp-ui-sideline-enable t
+            lsp-ui-sideline-show-code-actions t))
 
-(use-package lsp-treemacs
-  :after lsp)
+    (use-package lsp-treemacs
+      :after lsp)
 
-(use-package company
-  :config
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.0))
+    (use-package company
+      :config
+      (setq company-minimum-prefix-length 1
+            company-idle-delay 0.0))
 
-(use-package dap-mode
-  :after lsp-mode
-  :config
-  (dap-auto-configure-mode)
-  ;; Enable java debugging support
-  )
+    (use-package dap-mode
+      :after lsp-mode
+      :config
+      (dap-auto-configure-mode)
+      ;; Enable java debugging support
+      )
 
-  (use-package java-snippets)
+      (use-package java-snippets)
 
 (use-package all-the-icons :if (display-graphic-p))
 (use-package doom-themes)
@@ -315,21 +315,21 @@
 				"https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))
 
-(use-package gptel)
-;; :key can be a function that returns the API key.
-(defvar gemini-api-key nil
-  "Gemini API key loaded from a secure untracked location.")
-(gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
-(setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
-(setq gptel-default-mode 'org-mode)
-(setq gptel-default-major-mode 'org-mode)
+  (use-package gptel)
+  ;; :key can be a function that returns the API key.
+  (defvar gemini-api-key nil
+    "Gemini API key loaded from a secure untracked location.")
+  (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
+  (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
+  (setq gptel-default-mode 'org-mode)
+  (setq gptel-default-major-mode 'org-mode)
 
-(use-package esh-autosuggest
-:hook (eshell-mode . esh-autosuggest-mode)
-;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
-;; line below instead:
-;; :hook (eshell-mode-hook . esh-autosuggest-mode)
-:ensure t)
+  (use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode)
+  ;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
+  ;; line below instead:
+  ;; :hook (eshell-mode-hook . esh-autosuggest-mode)
+  :ensure t)
 
 (use-package dumb-jump
  :ensure t
@@ -344,8 +344,32 @@
 	)
 (use-package consult-todo)
 
+(setq mu4e-root-maildir (expand-file-name "~/Maildir/stensatter_mail"))
+(setq mu4e-sent-folder   "/Sent"
+      mu4e-trash-folder  "/Trash"
+      mu4e-drafts-folder "/Drafts")
+
+;; Command to sync mail
+(setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-update-interval 300)
+
+(setq user-mail-address "alfred@stensatter.se"
+      user-full-name  "Alfred Roos")
+
+;; SMTP configuration for sending mail
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-smtp-server "send.one.com"
+      smtpmail-smtp-service 587
+			smtpmail-smtp-user "alfred@stensatter.se"
+      smtpmail-stream-type 'starttls)
+
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+(require 'mu4e)
+(use-package mu4e-alert)
+(use-package mu4e-alert)
+
 (use-package yasnippet)
 (yas-global-mode 1)
 
-(use-package mlscroll)
-(use-package good-scroll)
+  (use-package mlscroll)
+  (use-package good-scroll)

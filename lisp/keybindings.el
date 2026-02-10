@@ -89,7 +89,7 @@
 
 (global-set-key (kbd "C-.") 'rc/duplicate-line)
 
-(defun increment(amnt)
+  (defun increment(amnt)
 	(interactive)
  	(let ((bounds (bounds-of-thing-at-point 'number)))
 		(if bounds

@@ -598,7 +598,34 @@ All package declarations and configurations.
 (use-package consult-todo)
 #+end_src
 
+** Mail
+#+begin_src elisp :tangle ~/.config/emacs/lisp/packages.el
+(setq mu4e-root-maildir (expand-file-name "~/Maildir/stensatter_mail"))
+(setq mu4e-sent-folder   "/Sent"
+      mu4e-trash-folder  "/Trash"
+      mu4e-drafts-folder "/Drafts")
 
+;; Command to sync mail
+(setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-update-interval 300)
+
+(setq user-mail-address "alfred@stensatter.se"
+      user-full-name  "Alfred Roos")
+
+;; SMTP configuration for sending mail
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-smtp-server "send.one.com"
+      smtpmail-smtp-service 587
+			smtpmail-smtp-user "alfred@stensatter.se"
+      smtpmail-stream-type 'starttls)
+
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+(require 'mu4e)
+(use-package mu4e-alert)
+(use-package mu4e-alert)
+
+
+#+end_src
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
@@ -1267,6 +1294,12 @@ s
 #+end_src
 * Custom funcs
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
+(defun my/middle()
+	(interactive)
+  (display-line-numbers-mode 0)
+  (olivetti-mode 1)
+	(setq olivetti-body-width 90))
+
 (defun today()
 	(interactive)
 	(message (format-time-string "%A(%d) %B V%W ")))

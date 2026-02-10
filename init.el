@@ -44,7 +44,13 @@
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
-(load "c3-mode.el")
+  (load "c3-mode.el")
+
+(defun my/middle()
+	(interactive)
+  (display-line-numbers-mode 0)
+  (olivetti-mode 1)
+	(setq olivetti-body-width 90))
 
 (defun today()
 	(interactive)
