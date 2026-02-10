@@ -344,6 +344,11 @@
 	)
 (use-package consult-todo)
 
+(use-package olivetti
+	:config (setq olivetti-body-width 100)
+	)
+(use-package consult-todo)
+
 (setq mu4e-root-maildir (expand-file-name "~/Maildir/stensatter_mail"))
 (setq mu4e-sent-folder   "/Sent"
       mu4e-trash-folder  "/Trash"

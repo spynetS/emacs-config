@@ -598,6 +598,16 @@ All package declarations and configurations.
 (use-package consult-todo)
 #+end_src
 
+      
+** Olivetti
+#+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
+(use-package olivetti
+	:config (setq olivetti-body-width 100)
+	)
+(use-package consult-todo)
+#+end_src
+
+
 ** Mail
 #+begin_src elisp :tangle ~/.config/emacs/lisp/packages.el
 (setq mu4e-root-maildir (expand-file-name "~/Maildir/stensatter_mail"))
@@ -973,7 +983,7 @@ Only displays for text-like modes (text, org, markdown)."
      ("WAIT" . (:foreground "#ecbe7b" :weight bold))
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
-
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
 #+end_src
 ** c3-mode
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
@@ -1254,6 +1264,7 @@ s
   (load-theme 'doom-plain t)
   (display-line-numbers-mode 0)
   (olivetti-mode 1)
+	(setq olivetti-body-width 110)
 	(setq-local line-spacing 0.2)
   (set-face-attribute 'default nil
                       :font (font-spec
