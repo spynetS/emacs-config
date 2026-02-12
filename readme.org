@@ -636,6 +636,12 @@ All package declarations and configurations.
 (use-package mu4e-alert)
 
 
+(add-hook 'message-mode-hook
+					(lambda ()
+						(flyspell-mode 1)
+						(my/middle)
+						))
+
 #+end_src
 * Keybindings (lisp/keybindings.el)
 
@@ -985,6 +991,13 @@ Only displays for text-like modes (text, org, markdown)."
      ("DONE" . (:foreground "#98be65" :weight bold))
      ("CANCELLED" . (:foreground "#5b6268" :weight bold))))
     (setq org-format-latex-options (plist-put org-format-latex-options :scale 4.0))
+
+(add-hook 'org-mode-hook
+					(lambda ()
+						(flyspell-mode 1)
+						(my/middle)
+						))
+		
 #+end_src
 ** c3-mode
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el

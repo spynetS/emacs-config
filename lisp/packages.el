@@ -374,6 +374,13 @@
 (use-package mu4e-alert)
 (use-package mu4e-alert)
 
+
+(add-hook 'message-mode-hook
+					(lambda ()
+						(flyspell-mode 1)
+						(my/middle)
+						))
+
 (use-package yasnippet)
 (yas-global-mode 1)
 
