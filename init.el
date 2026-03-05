@@ -82,6 +82,14 @@
 		(message "Opening file %s" path)
 		(find-file path)))
 
+(defun insert-uuid ()
+  "Insert a new UUID at point."
+  (interactive)
+  (let ((uuid (if (fboundp 'uuidgen)
+                  (uuidgen-4) ;; built-in uuidgen function in Emacs 28+
+                (string-trim (shell-command-to-string "uuidgen")))))
+    (insert uuid)))
+
 (defun thanos/wtype-text (text)
   "Process TEXT for wtype, handling newlines properly."
   (let* ((has-final-newline (string-match-p "\n$" text))

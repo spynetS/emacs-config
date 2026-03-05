@@ -653,7 +653,9 @@ All custom keybindings organized by category.
 ;; Treemacs
 (global-set-key [f8] 'treemacs)
 (global-set-key (kbd "C-c o p") 'treemacs)
+(global-set-key (kbd "C-c t t") 'treemacs-select-window)
 (global-set-key (kbd "C-x p s") 'consult-ripgrep)
+
 
 ;; Projectile
 (projectile-mode +1)
@@ -1363,6 +1365,14 @@ then when you are done editing it replaced the text
 + wtype is depedency 
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
+(defun insert-uuid ()
+  "Insert a new UUID at point."
+  (interactive)
+  (let ((uuid (if (fboundp 'uuidgen)
+                  (uuidgen-4) ;; built-in uuidgen function in Emacs 28+
+                (string-trim (shell-command-to-string "uuidgen")))))
+    (insert uuid)))
+
 (defun thanos/wtype-text (text)
   "Process TEXT for wtype, handling newlines properly."
   (let* ((has-final-newline (string-match-p "\n$" text))

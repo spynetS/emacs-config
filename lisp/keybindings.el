@@ -1,7 +1,9 @@
 ;; Treemacs
 (global-set-key [f8] 'treemacs)
 (global-set-key (kbd "C-c o p") 'treemacs)
+(global-set-key (kbd "C-c t t") 'treemacs-select-window)
 (global-set-key (kbd "C-x p s") 'consult-ripgrep)
+
 
 ;; Projectile
 (projectile-mode +1)
