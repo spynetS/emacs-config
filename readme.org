@@ -245,37 +245,33 @@ All package declarations and configurations.
 ** LSP & Java Development
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
-    (use-package lsp-mode
-      :commands lsp
-      :config
-      (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-            lsp-enable-snippet t
-            lsp-completion-provider :capf))
+(use-package lsp-mode
+  :commands lsp)
 
-    (use-package lsp-ui
-      :commands lsp-ui-mode
-      :config
-      (setq lsp-ui-doc-enable t
-            lsp-ui-sideline-enable t
-            lsp-ui-sideline-show-code-actions t))
+;; (use-package lsp-mode
+;;     :commands lsp
+;;     :config
+;;     (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+;;           lsp-enable-snippet t
+;;           lsp-completion-provider :capf))
 
-    (use-package lsp-treemacs
-      :after lsp)
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable t
+        lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-code-actions t))
 
-    (use-package company
-      :config
-			(global-company-mode 1)
-      (setq company-minimum-prefix-length 1
-            company-idle-delay 0.0))
+(use-package lsp-treemacs
+  :after lsp)
 
-    (use-package dap-mode
-      :after lsp-mode
-      :config
-      (dap-auto-configure-mode)
-      ;; Enable java debugging support
-      )
+(use-package company
+  :config
+	(global-company-mode 1)
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0))
 
-      (use-package java-snippets)
+(use-package java-snippets)
 #+end_src
 
 ** Theme & Visual
@@ -599,7 +595,7 @@ All package declarations and configurations.
 (use-package consult-todo)
 #+end_src
 
-      
+
 ** Olivetti
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package olivetti
@@ -705,7 +701,7 @@ All custom keybindings organized by category.
 #+end_src
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-(setq compilation-jump-to-first-error nil)
+(setq compilation-jump-to-first-error t)
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 #+end_src
@@ -759,7 +755,6 @@ Makes so the cursor doesnt go to compile buffre
       (yank))))
 
 (global-set-key (kbd "C-c o RET") 'eshell-current-directory)
-(global-set-key (kbd "C-<return>") 'eshell-current-directory)
 #+end_src
 
 ** LSP
@@ -851,11 +846,8 @@ Visual and interface settings.
 (mlscroll-mode)
 (good-scroll-mode)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka-14"))
-;;(add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
-
-(set-frame-font "Iosevka SemiBold-14" t t)
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14"))
+(set-face-attribute 'default nil :font "JetBrains Mono" :height 140)
 
 #+end_src
 ** Modeline
@@ -1195,9 +1187,9 @@ Only displays for text-like modes (text, org, markdown)."
 ** Indentation
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
-;;(setq-default indent-tabs-mode nil) ;; use spaces hehe
+(setq-default indent-tabs-mode nil) ;; use spaces hehe
 ;;(setq-default tab-width 4)
-(setq-default indent-tabs-mode t)
+;;(setq-default indent-tabs-mode t)
 (setq-default tab-width 2) ; Assuming you want your tabs to be two spaces wide
 (setq truncate-lines t)
 #+end_src
