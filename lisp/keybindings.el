@@ -61,7 +61,6 @@
       (yank))))
 
 (global-set-key (kbd "C-c o RET") 'eshell-current-directory)
-(global-set-key (kbd "C-<return>") 'eshell-current-directory)
 
 ;;lsp
 (global-set-key (kbd "C-c c d") 'lsp-goto-type-definition)

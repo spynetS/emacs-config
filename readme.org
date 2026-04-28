@@ -281,19 +281,22 @@ All package declarations and configurations.
 (use-package doom-themes)
 (use-package kanagawa-themes)
 
-;;(use-package doom-modeline
-;;  :init
-;;  (doom-modeline-mode 0)
-;;  :custom
-;;  ;; Optional tweaks
-;;  (doom-modeline-height 25)
-;;  (doom-modeline-bar-width 3)
-;;  (doom-modeline-buffer-file-name-style 'truncate-with-project)
-;;  (doom-modeline-minor-modes nil)
-;;	(doom-modeline-enable-word-count t)
-;;  (doom-modeline-indent-info t)
-;;	(doom-modeline-major-mode-icon t)
-;;  (doom-modeline-icon t))  ;; requires all-the-icons package
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1)
+  :custom
+  ;; Optional tweaks
+  (doom-modeline-height 18)
+  (doom-modeline-bar-width 4)
+  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (doom-modeline-minor-modes nil)
+	(doom-modeline-enable-word-count t)
+  (doom-modeline-time-analogue-clock t)
+  (doom-modeline-indent-info t)
+	(doom-modeline-major-mode-icon t)
+  (doom-modeline-icon t))  ;; requires all-the-icons package
+
+
 #+end_src
 
 ** Editing Enhancements
@@ -472,7 +475,7 @@ All package declarations and configurations.
   (vertico-posframe-min-width 50)
   (vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8)))
   :init
-  (vertico-posframe-mode 0))
+  (vertico-posframe-mode 1))
 
 (use-package marginalia
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
@@ -595,7 +598,6 @@ All package declarations and configurations.
 (use-package consult-todo)
 #+end_src
 
-
 ** Olivetti
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package olivetti
@@ -603,7 +605,6 @@ All package declarations and configurations.
 	)
 (use-package consult-todo)
 #+end_src
-
 
 ** Mail
 #+begin_src elisp :tangle ~/.config/emacs/lisp/packages.el
@@ -639,6 +640,13 @@ All package declarations and configurations.
 						))
 
 #+end_src
+** Reka
+#+begin_src elisp :tangle ~/.config/emacs/lisp/init.el
+(add-to-list 'load-path "/home/spy/Documents/reka/lisp")
+(require 'reka)
+(reka-enable)
+#+end_src
+
 * Keybindings (lisp/keybindings.el)
 
 All custom keybindings organized by category.
@@ -837,7 +845,7 @@ Visual and interface settings.
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 (setq inhibit-startup-message t  ; Don't show the splash screen
       visible-bell t)            ; Flash when the bell rings
-
+(setq inhibit-splash-screen t)
 ;; Disable unnecessary UI elements
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -846,7 +854,7 @@ Visual and interface settings.
 (mlscroll-mode)
 (good-scroll-mode)
 
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14"))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-13"))
 (set-face-attribute 'default nil :font "JetBrains Mono" :height 140)
 
 #+end_src
@@ -935,11 +943,11 @@ Only displays for text-like modes (text, org, markdown)."
 		(:eval (format-time-string "%A(%d) %B V%W "))
     ))
 
-(require 'moody)
-(moody-replace-mode-line-front-space)
-(moody-replace-mode-line-buffer-identification)
-(moody-replace-vc-mode)
-(setq x-underline-at-descent-line t) ;; optional: underline style
+;; (require 'moody)
+;; (moody-replace-mode-line-front-space)
+;; (moody-replace-mode-line-buffer-identification)
+;; (moody-replace-vc-mode)
+;; (setq x-underline-at-descent-line t) ;; optional: underline style
 
 #+end_src
 
@@ -995,7 +1003,15 @@ Only displays for text-like modes (text, org, markdown)."
 #+end_src
 ** c3-mode
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-  (load "c3-mode.el")
+(setq treesit-language-source-alist
+  '((c3 "https://github.com/c3lang/tree-sitter-c3")))
+;;(add-to-list 'treesit-language-source-alist
+;;  '(c3 "https://github.com/c3lang/tree-sitter-c3"))
+(load "c3-ts-mode.el")
+(require 'c3-ts-mode)
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(c3-ts-mode "c3lsp")))
 #+end_src
 
 ** Agenda  
@@ -1179,9 +1195,9 @@ Only displays for text-like modes (text, org, markdown)."
 ** Line Numbers & Highlighting
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
-(setq display-line-numbers 'relative)
-(global-display-line-numbers-mode 1)
-(global-hl-line-mode +1)          ;; highlight current line
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)
+(global-hl-line-mode 1)          ;; highlight current line
 #+end_src
 
 ** Indentation
@@ -1195,9 +1211,6 @@ Only displays for text-like modes (text, org, markdown)."
 #+end_src
 
 ** Yes/No Prompt
-
-
-s
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
 (fset 'yes-or-no-p 'y-or-n-p)

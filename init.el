@@ -40,11 +40,19 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(setq compilation-jump-to-first-error nil)
+(setq compilation-jump-to-first-error t)
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
-  (load "c3-mode.el")
+(setq treesit-language-source-alist
+  '((c3 "https://github.com/c3lang/tree-sitter-c3")))
+;;(add-to-list 'treesit-language-source-alist
+;;  '(c3 "https://github.com/c3lang/tree-sitter-c3"))
+(load "c3-ts-mode.el")
+(require 'c3-ts-mode)
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(c3-ts-mode "c3lsp")))
 
 (defun my/middle()
 	(interactive)

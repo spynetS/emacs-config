@@ -91,55 +91,52 @@
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
 
-    (use-package lsp-mode
-      :commands lsp
-      :config
-      (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
-            lsp-enable-snippet t
-            lsp-completion-provider :capf))
+(use-package lsp-mode
+  :commands lsp)
 
-    (use-package lsp-ui
-      :commands lsp-ui-mode
-      :config
-      (setq lsp-ui-doc-enable t
-            lsp-ui-sideline-enable t
-            lsp-ui-sideline-show-code-actions t))
+;; (use-package lsp-mode
+;;     :commands lsp
+;;     :config
+;;     (setq lsp-prefer-flymake nil   ;; Use flycheck instead of flymake
+;;           lsp-enable-snippet t
+;;           lsp-completion-provider :capf))
 
-    (use-package lsp-treemacs
-      :after lsp)
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable t
+        lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-code-actions t))
 
-    (use-package company
-      :config
-			(global-company-mode 1)
-      (setq company-minimum-prefix-length 1
-            company-idle-delay 0.0))
+(use-package lsp-treemacs
+  :after lsp)
 
-    (use-package dap-mode
-      :after lsp-mode
-      :config
-      (dap-auto-configure-mode)
-      ;; Enable java debugging support
-      )
+(use-package company
+  :config
+	(global-company-mode 1)
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0))
 
-      (use-package java-snippets)
+(use-package java-snippets)
 
 (use-package all-the-icons :if (display-graphic-p))
 (use-package doom-themes)
 (use-package kanagawa-themes)
 
-;;(use-package doom-modeline
-;;  :init
-;;  (doom-modeline-mode 0)
-;;  :custom
-;;  ;; Optional tweaks
-;;  (doom-modeline-height 25)
-;;  (doom-modeline-bar-width 3)
-;;  (doom-modeline-buffer-file-name-style 'truncate-with-project)
-;;  (doom-modeline-minor-modes nil)
-;;	(doom-modeline-enable-word-count t)
-;;  (doom-modeline-indent-info t)
-;;	(doom-modeline-major-mode-icon t)
-;;  (doom-modeline-icon t))  ;; requires all-the-icons package
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1)
+  :custom
+  ;; Optional tweaks
+  (doom-modeline-height 18)
+  (doom-modeline-bar-width 4)
+  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (doom-modeline-minor-modes nil)
+	(doom-modeline-enable-word-count t)
+  (doom-modeline-time-analogue-clock t)
+  (doom-modeline-indent-info t)
+	(doom-modeline-major-mode-icon t)
+  (doom-modeline-icon t))  ;; requires all-the-icons package
 
 (use-package multiple-cursors)
 
@@ -268,7 +265,7 @@
   (vertico-posframe-min-width 50)
   (vertico-posframe-parameters '((left-fringe . 8) (right-fringe . 8)))
   :init
-  (vertico-posframe-mode 0))
+  (vertico-posframe-mode 1))
 
 (use-package marginalia
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding

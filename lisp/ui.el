@@ -23,7 +23,7 @@
 
 (setq inhibit-startup-message t  ; Don't show the splash screen
       visible-bell t)            ; Flash when the bell rings
-
+(setq inhibit-splash-screen t)
 ;; Disable unnecessary UI elements
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -32,11 +32,8 @@
 (mlscroll-mode)
 (good-scroll-mode)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka-14"))
-;;(add-to-list 'default-frame-alist '(font . "Iosevka" ))
-(set-face-attribute 'default t :font "Iosevka" :weight 'bold )
-
-(set-frame-font "Iosevka SemiBold-14" t t)
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-13"))
+(set-face-attribute 'default nil :font "JetBrains Mono" :height 140)
 
 ;; Function to show current workspace in the mode-line
 (defun my/mode-line-workspace ()
@@ -121,11 +118,11 @@ Only displays for text-like modes (text, org, markdown)."
 		(:eval (format-time-string "%A(%d) %B V%W "))
     ))
 
-(require 'moody)
-(moody-replace-mode-line-front-space)
-(moody-replace-mode-line-buffer-identification)
-(moody-replace-vc-mode)
-(setq x-underline-at-descent-line t) ;; optional: underline style
+;; (require 'moody)
+;; (moody-replace-mode-line-front-space)
+;; (moody-replace-mode-line-buffer-identification)
+;; (moody-replace-vc-mode)
+;; (setq x-underline-at-descent-line t) ;; optional: underline style
 
 ;; Modern Org Mode Configuration
 ;; A sleek, feature-rich setup for Org mode
@@ -349,13 +346,13 @@ Only displays for text-like modes (text, org, markdown)."
 
 (provide 'org-config)
 
-(setq display-line-numbers 'relative)
-(global-display-line-numbers-mode 1)
-(global-hl-line-mode +1)          ;; highlight current line
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)
+(global-hl-line-mode 1)          ;; highlight current line
 
-;;(setq-default indent-tabs-mode nil) ;; use spaces hehe
+(setq-default indent-tabs-mode nil) ;; use spaces hehe
 ;;(setq-default tab-width 4)
-(setq-default indent-tabs-mode t)
+;;(setq-default indent-tabs-mode t)
 (setq-default tab-width 2) ; Assuming you want your tabs to be two spaces wide
 (setq truncate-lines t)
 
