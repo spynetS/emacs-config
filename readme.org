@@ -280,10 +280,18 @@ All package declarations and configurations.
 (use-package all-the-icons :if (display-graphic-p))
 (use-package doom-themes)
 (use-package kanagawa-themes)
+(use-package dimmer
+  :init
+  (dimmer-mode))
+(use-package beacon
+  :init
+  (beacon-mode))
 (use-package nyan-mode
   :init
-(nyan-mode))
+  (nyan-mode)
+  (nyan-start-animation))
 (use-package parrot
+  :hook (compilation)
   :init
   (parrot-mode))
 
@@ -307,6 +315,15 @@ All package declarations and configurations.
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/packages.el
 (use-package multiple-cursors)
+
+(use-package evil-numbers
+  :config
+  (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C-c =") 'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)
+  (global-set-key (kbd "C-c C-+") 'evil-numbers/inc-at-pt-incremental)
+  (global-set-key (kbd "C-c C-=") 'evil-numbers/inc-at-pt-incremental)
+  (global-set-key (kbd "C-c C--") 'evil-numbers/dec-at-pt-incremental))
 
 (use-package eyebrowse
   :ensure t
@@ -724,6 +741,8 @@ Makes so the cursor doesnt go to compile buffre
 (setq compilation-finish-functions
       (lambda (buf msg)
         (when (string-match ".*finished" msg)
+          (when (featurep 'parrot) ;; if we have parrot we animate it 
+            (parrot-start-animation))
           (message "Compilation finished successfully."))))
 
 (setq display-buffer-alist
@@ -1339,6 +1358,11 @@ Only displays for text-like modes (text, org, markdown)."
 (defun today()
 	(interactive)
 	(message (format-time-string "%A(%d) %B V%W ")))
+
+(defun my/config()
+  (interactive)
+  (find-file "~/.config/emacs/readme.org"))
+
 
 (defun erofi ()
   "Prompt using Vertico to run an executable from /usr/bin in a temporary frame."
