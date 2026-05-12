@@ -280,6 +280,12 @@ All package declarations and configurations.
 (use-package all-the-icons :if (display-graphic-p))
 (use-package doom-themes)
 (use-package kanagawa-themes)
+(use-package nyan-mode
+  :init
+(nyan-mode))
+(use-package parrot
+  :init
+  (parrot-mode))
 
 (use-package doom-modeline
   :init
@@ -295,8 +301,6 @@ All package declarations and configurations.
   (doom-modeline-indent-info t)
 	(doom-modeline-major-mode-icon t)
   (doom-modeline-icon t))  ;; requires all-the-icons package
-
-
 #+end_src
 
 ** Editing Enhancements
