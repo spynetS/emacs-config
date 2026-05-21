@@ -297,11 +297,13 @@ All package declarations and configurations.
 
 (use-package doom-modeline
   :init
-  (doom-modeline-mode 1)
+  (setq doom-modeline-mode t)
+   (setq display-time-mode t)
   :custom
   ;; Optional tweaks
   (doom-modeline-height 18)
   (doom-modeline-bar-width 4)
+  (doom-modeline-battery-status t)
   (doom-modeline-buffer-file-name-style 'truncate-with-project)
   (doom-modeline-minor-modes nil)
 	(doom-modeline-enable-word-count t)
@@ -1026,15 +1028,15 @@ Only displays for text-like modes (text, org, markdown)."
 #+end_src
 ** c3-mode
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-(setq treesit-language-source-alist
-  '((c3 "https://github.com/c3lang/tree-sitter-c3")))
-;;(add-to-list 'treesit-language-source-alist
-;;  '(c3 "https://github.com/c3lang/tree-sitter-c3"))
-(load "c3-ts-mode.el")
-(require 'c3-ts-mode)
+;; (setq treesit-language-source-alist
+;;   '((c3 "https://github.com/c3lang/tree-sitter-c3")))
+;; ;;(add-to-list 'treesit-language-source-alist
+;; ;;  '(c3 "https://github.com/c3lang/tree-sitter-c3"))
+;; (load "c3-ts-mode.el")
+;; (require 'c3-ts-mode)
 
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '(c3-ts-mode "c3lsp")))
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs '(c3-ts-mode "c3lsp")))
 #+end_src
 
 ** Agenda  
