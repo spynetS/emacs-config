@@ -1251,7 +1251,7 @@ Only displays for text-like modes (text, org, markdown)."
 ** Cursor Configuration
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/lisp/ui.el
-(setq-default cursor-type 'bar)  ; Slim vertical bar cursor
+(setq-default cursor-type 'box)  ; Slim vertical bar cursor
 (blink-cursor-mode 1)
 (setq cursor-in-non-selected-windows nil)
 #+end_src
