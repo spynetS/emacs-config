@@ -40,19 +40,54 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(defun sync-timeedit ()
+  (let ((url "https://cloud.timeedit.net/ju/web/open/ri607QeQ5q2Zb9Q5m68rn3Q6yZZ081Q1ZZQYcbu.ics")
+        (file "~/org/timeedit.ics"))
+    (url-copy-file url file t)
+    (message "TimeEdit calendar synced!")))
+
+;; Run sync whenever Emacs starts
+(add-hook 'after-init-hook #'my/sync-timeedit)
+
+(defun my/sync-timeedit ()
+  (interactive)
+  (url-copy-file "https://cloud.timeedit.net/ju/web/open/ri607QeQ5q2Zb9Q5m68rn3Q6yZZ081Q1ZZQYcbu.ics" 
+                 "~/org/timeedit.ics" t)
+  (message "TimeEdit synced!"))
+
+;; Add the file to your agenda list
+;;(add-to-list 'org-agenda-files "~/org/timeedit.ics")
+
+(require 'icalendar)
+(defun my/import-timeedit-to-calendar ()
+  (interactive)
+  (icalendar-import-file "~/org/timeedit.ics" "~/org/diary"))
+
+(setq diary-file "~/org/diary") ;; Or wherever you keep your
+(setq mark-diary-entries-in-calendar t)
+(add-hook 'diary-display-hook 'diary-fancy-display)
+
+(require 'llvm-mode)
+
 (setq compilation-jump-to-first-error t)
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
-(setq treesit-language-source-alist
-  '((c3 "https://github.com/c3lang/tree-sitter-c3")))
-;;(add-to-list 'treesit-language-source-alist
-;;  '(c3 "https://github.com/c3lang/tree-sitter-c3"))
-(load "c3-ts-mode.el")
-(require 'c3-ts-mode)
+;; (setq treesit-language-source-alist
+;;   '((c3 "https://github.com/c3lang/tree-sitter-c3")))
+;; ;;(add-to-list 'treesit-language-source-alist
+;; ;;  '(c3 "https://github.com/c3lang/tree-sitter-c3"))
+;; (load "c3-ts-mode.el")
+;; (require 'c3-ts-mode)
 
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '(c3-ts-mode "c3lsp")))
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs '(c3-ts-mode "c3lsp")))
+
+(load "odin-mode.el")
+
+(defun my/system-update()
+  (interactive)
+  (async-shell-command "sudo pacman -Suyy --noconfirm"))
 
 (defun my/middle()
 	(interactive)
@@ -63,6 +98,11 @@
 (defun today()
 	(interactive)
 	(message (format-time-string "%A(%d) %B V%W ")))
+
+(defun my/config()
+  (interactive)
+  (find-file "~/.config/emacs/readme.org"))
+
 
 (defun erofi ()
   "Prompt using Vertico to run an executable from /usr/bin in a temporary frame."
