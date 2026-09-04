@@ -423,10 +423,14 @@
 ;; (setq gptel-default-mode 'org-mode)
 ;; (setq gptel-default-major-mode 'org-mode)
 
-(gptel-make-ollama "Ollama"             ;Any name of your choosing
-  :host "localhost:11434"               ;Where it's running
-  :stream t                             ;Stream responses
-  :models '(mistral:latest))          ;List of models
+
+(setq gptel-model 'qwen3:4b
+      gptel-backend
+      (gptel-make-ollama
+       "Ollama"
+       :host "localhost:11434"
+       :stream t
+       :models '(qwen3:4b)))
 
   (use-package claude-code)
   (global-set-key (kbd "C-c c a") 'claude-code-transient)
@@ -628,8 +632,10 @@
 (global-set-key (kbd "C-M-S-i")
                 (lambda () (interactive) (increment -1)))
 
-  (use-package mlscroll)
-  (use-package good-scroll)
+;; (use-package mlscroll)
+;; (use-package good-scroll)
+;; (mlscroll-mode)
+    ;; (good-scroll-mode)
 
 (setq inhibit-startup-message t  ; Don't show the splash screen
       visible-bell t)            ; Flash when the bell rings
@@ -638,9 +644,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-
-(mlscroll-mode)
-(good-scroll-mode)
+(setq cursor-type 'bar)
 
 (add-to-list 'default-frame-alist '(font . "Noto Sans Mono"))
 (set-face-attribute 'default nil :font "Noto Sans Mono" :height 120)
