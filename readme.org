@@ -83,7 +83,8 @@ Add this to your existing init.el to auto-tangle this file on save:
 The main entry point that loads all other configuration modules.
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-;; Load custom Emacs Lisp files
+;; Load custom Emacs Lisp files -*- lexical-binding: t; -*-
+
 (add-to-list 'load-path "/home/spy/.config/emacs/lisp")
 (setq browse-url-browser-function 'browse-url-firefox)
 
