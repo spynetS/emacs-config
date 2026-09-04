@@ -115,11 +115,6 @@ The main entry point that loads all other configuration modules.
 
 ;; Load configuration modules
 (load "secret")
-(load "packages")
-(load "ui")
-(load "keybindings")
-(load "treesitter")
-
 
 ;; Custom file configuration
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -605,14 +600,23 @@ All package declarations and configurations.
 
 ** GPTEL
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-  (use-package gptel)
-  ;; :key can be a function that returns the API key.
-  (defvar gemini-api-key nil
-    "Gemini API key loaded from a secure untracked location.")
-  (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
-  (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
-  (setq gptel-default-mode 'org-mode)
-  (setq gptel-default-major-mode 'org-mode)
+(use-package gptel)
+;; :key can be a function that returns the API key.
+(defvar gemini-api-key nil
+  "Gemini API key loaded from a secure untracked location.")
+;; (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
+;; (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
+;; (setq gptel-default-mode 'org-mode)
+;; (setq gptel-default-major-mode 'org-mode)
+
+
+(setq gptel-model 'qwen3:4b
+      gptel-backend
+      (gptel-make-ollama
+       "Ollama"
+       :host "localhost:11434"
+       :stream t
+       :models '(qwen3:4b)))
 
 #+end_src
 ** claude-code.el

@@ -30,11 +30,6 @@
 
 ;; Load configuration modules
 (load "secret")
-(load "packages")
-(load "ui")
-(load "keybindings")
-(load "treesitter")
-
 
 ;; Custom file configuration
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -419,14 +414,19 @@
 				"https://feeds.feedburner.com/GoogleOpenSourceBlog"
         "https://planet.emacslife.com/atom.xml"))
 
-  (use-package gptel)
-  ;; :key can be a function that returns the API key.
-  (defvar gemini-api-key nil
-    "Gemini API key loaded from a secure untracked location.")
-  (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
-  (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
-  (setq gptel-default-mode 'org-mode)
-  (setq gptel-default-major-mode 'org-mode)
+(use-package gptel)
+;; :key can be a function that returns the API key.
+(defvar gemini-api-key nil
+  "Gemini API key loaded from a secure untracked location.")
+;; (gptel-make-gemini "gemini-2.5-pro" :key gemini-api-key :stream t)
+;; (setq gptel-backend (gptel-get-backend "gemini-2.5-pro"))
+;; (setq gptel-default-mode 'org-mode)
+;; (setq gptel-default-major-mode 'org-mode)
+
+(gptel-make-ollama "Ollama"             ;Any name of your choosing
+  :host "localhost:11434"               ;Where it's running
+  :stream t                             ;Stream responses
+  :models '(mistral:latest))          ;List of models
 
   (use-package claude-code)
   (global-set-key (kbd "C-c c a") 'claude-code-transient)
