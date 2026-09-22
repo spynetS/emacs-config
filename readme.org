@@ -323,8 +323,6 @@ All package declarations and configurations.
 ;;   (parrot-mode))
 
 (use-package doom-modeline
-  :init
-  (doom-modeline-mode)
   :custom
   ;; Optional tweaks
   (doom-modeline-height 18)
@@ -930,7 +928,6 @@ Visual and interface settings.
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(setq cursor-type 'bar)
 
 (add-to-list 'default-frame-alist '(font . "Noto Sans Mono"))
 (set-face-attribute 'default nil :font "Noto Sans Mono" :height 120)
@@ -1260,7 +1257,7 @@ Only displays for text-like modes (text, org, markdown)."
 ** Cursor Configuration
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-(setq-default cursor-type 'box)  ; Slim vertical bar cursor
+(setq-default cursor-type 'bar)  ; Slim vertical bar cursor
 (blink-cursor-mode 1)
 (setq cursor-in-non-selected-windows nil)
 #+end_src

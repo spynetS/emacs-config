@@ -644,7 +644,6 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(setq cursor-type 'bar)
 
 (add-to-list 'default-frame-alist '(font . "Noto Sans Mono"))
 (set-face-attribute 'default nil :font "Noto Sans Mono" :height 120)
@@ -939,7 +938,7 @@ Only displays for text-like modes (text, org, markdown)."
 (setq auto-save-file-name-transforms
       `((".*" ,(expand-file-name "~/.config/emacs/auto-saves/") t)))
 
-(setq-default cursor-type 'box)  ; Slim vertical bar cursor
+(setq-default cursor-type 'bar)  ; Slim vertical bar cursor
 (blink-cursor-mode 1)
 (setq cursor-in-non-selected-windows nil)
 
