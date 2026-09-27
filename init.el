@@ -657,7 +657,6 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(setq cursor-type 'bar)
 
 (add-to-list 'default-frame-alist '(font . "Noto Sans Mono"))
 (set-face-attribute 'default nil :font "Noto Sans Mono" :height 120)
