@@ -313,6 +313,10 @@ All package declarations and configurations.
 (use-package beacon
   :init
   (beacon-mode))
+
+(display-battery-mode)
+(display-time)
+
 ;; (use-package nyan-mode
 ;;   :init
 ;;   (nyan-mode)
@@ -614,7 +618,7 @@ All package declarations and configurations.
       gptel-backend
       (gptel-make-ollama
        "Ollama"
-       :host "localhost:11434"
+       :host "alfredroos.se:11434"
        :stream t
        :models '(qwen3:4b)))
 
@@ -713,6 +717,18 @@ All package declarations and configurations.
 #+begin_src elisp :tangle ~/.config/emacs/init.el
 (require 'llvm-mode)
 #+end_src
+** Calendar
+#+begin_src elisp :tangle ~/.config/emacs/init.el
+(use-package calfw
+  :ensure t
+  :defer t)
+
+(use-package calfw-org
+  :ensure t
+  :after calfw
+  :ensure t)
+#+end_src
+
 
 * Keybindings (init.el)
 
@@ -916,9 +932,9 @@ Visual and interface settings.
 ** Basic UI Settings
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
 ;; (use-package mlscroll)
-;; (use-package good-scroll)
+(use-package good-scroll)
 ;; (mlscroll-mode)
-    ;; (good-scroll-mode)
+(good-scroll-mode)
 
 #+end_src
 
@@ -971,13 +987,13 @@ Only displays for text-like modes (text, org, markdown)."
       (format "%dW" (count-words (point-min) (point-max)))
     "")) ;; return empty string for other modes
 
-(defun my/mode-line-git-branch ()
-  "Return current Git branch for mode-line, or nil."
-  (when-let ((file buffer-file-name)
-             (backend (vc-backend file)))
-    (when (eq backend 'Git)
-      (when-let ((branch (vc-git--symbolic-ref file)))
-        (concat " " branch)))))
+;; (defun my/mode-line-git-branch ()
+;;   "Return current Git branch for mode-line, or nil."
+;;   (when-let ((file buffer-file-name)
+;;              (backend (vc-backend file)))
+;;     (when (eq backend 'Git)
+;;       (when-let ((branch (vc-git--symbolic-ref file)))
+;;         (concat " " branch)))))
 
 
 (setq moody-mode-line-height 20)
@@ -1062,9 +1078,13 @@ Only displays for text-like modes (text, org, markdown)."
   (org-return-follows-link t)
   (org-confirm-babel-evaluate nil))
 
-(setq org-agenda-files
+(defun my/refresh-agenda()
+  (interactive)
+  (setq org-agenda-files
       (directory-files-recursively "~/org/" "\\.org$"))
-		
+  )
+
+(my/refresh-agenda)		
 #+end_src
 ** Agenda  
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
@@ -1128,13 +1148,13 @@ Only displays for text-like modes (text, org, markdown)."
 ;; BABEL LANGUAGES
 ;; ============================================================================
 
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((emacs-lisp . t)
-;;    (python . t)
-;;    (shell . t)
-;;    (js . t)
-;;    (sql . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)
+   (js . t)
+   (sql . t)))
 
 ;; ============================================================================
 ;; MODERN AGENDA VIEW
@@ -1260,7 +1280,7 @@ Only displays for text-like modes (text, org, markdown)."
 ** Cursor Configuration
 
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-(setq-default cursor-type 'box)  ; Slim vertical bar cursor
+(setq-default cursor-type 'bar)  ; Slim vertical bar cursor
 (blink-cursor-mode 1)
 (setq cursor-in-non-selected-windows nil)
 #+end_src
@@ -1318,12 +1338,12 @@ Only displays for text-like modes (text, org, markdown)."
   (display-line-numbers-mode 0)
   (olivetti-mode 1)
 	(setq olivetti-body-width 110)
-	(setq-local line-spacing 0.2)
-  (set-face-attribute 'default nil
-                      :font (font-spec
-                             :family "Noto Serif Display"
-                             :weight 'medium
-                             :size 16)))
+	(setq-local line-spacing 0.2))
+  ;; (set-face-attribute 'default nil
+  ;;                     :font (font-spec
+  ;;                            :family "Noto Serif Display"
+  ;;                            :weight 'medium
+  ;;                            :size 16)))
 
 (defun jetbrains ()
   "Starts jetbrains style"
@@ -1358,6 +1378,29 @@ Only displays for text-like modes (text, org, markdown)."
 #+end_src
 * Custom funcs
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
+(use-package auctex
+  :ensure t
+  :defer t
+  :config
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil)
+
+  ;; Automatically refresh the PDF buffer after compilation.
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install)
+
+  (setq TeX-view-program-selection
+        '((output-pdf "PDF Tools"))))
+
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
+
 (defun my/system-update()
   (interactive)
   (async-shell-command "sudo pacman -Suyy --noconfirm"))
@@ -1508,8 +1551,6 @@ then when you are done editing it replaced the text
                       `(lambda () (interactive) (exwm-workspace-switch ,i))))
 
 ;; show some info
-(display-battery-mode)
-(display-time)
 ;;(exwm- modeline-mode)
 
 
