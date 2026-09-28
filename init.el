@@ -191,6 +191,10 @@
 (use-package beacon
   :init
   (beacon-mode))
+
+(display-battery-mode)
+(display-time)
+
 ;; (use-package nyan-mode
 ;;   :init
 ;;   (nyan-mode)
@@ -428,7 +432,7 @@
       gptel-backend
       (gptel-make-ollama
        "Ollama"
-       :host "localhost:11434"
+       :host "alfredroos.se:11434"
        :stream t
        :models '(qwen3:4b)))
 
@@ -495,6 +499,15 @@
   '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
 (require 'llvm-mode)
+
+(use-package calfw
+  :ensure t
+  :defer t)
+
+(use-package calfw-org
+  :ensure t
+  :after calfw
+  :ensure t)
 
 ;; Treemacs
 ;; (global-set-key [f8] 'treemacs)
@@ -633,9 +646,9 @@
                 (lambda () (interactive) (increment -1)))
 
 ;; (use-package mlscroll)
-;; (use-package good-scroll)
+(use-package good-scroll)
 ;; (mlscroll-mode)
-    ;; (good-scroll-mode)
+(good-scroll-mode)
 
 (setq inhibit-startup-message t  ; Don't show the splash screen
       visible-bell t)            ; Flash when the bell rings
@@ -681,13 +694,13 @@ Only displays for text-like modes (text, org, markdown)."
       (format "%dW" (count-words (point-min) (point-max)))
     "")) ;; return empty string for other modes
 
-(defun my/mode-line-git-branch ()
-  "Return current Git branch for mode-line, or nil."
-  (when-let ((file buffer-file-name)
-             (backend (vc-backend file)))
-    (when (eq backend 'Git)
-      (when-let ((branch (vc-git--symbolic-ref file)))
-        (concat " " branch)))))
+;; (defun my/mode-line-git-branch ()
+;;   "Return current Git branch for mode-line, or nil."
+;;   (when-let ((file buffer-file-name)
+;;              (backend (vc-backend file)))
+;;     (when (eq backend 'Git)
+;;       (when-let ((branch (vc-git--symbolic-ref file)))
+;;         (concat " " branch)))))
 
 
 (setq moody-mode-line-height 20)
@@ -768,8 +781,13 @@ Only displays for text-like modes (text, org, markdown)."
   (org-return-follows-link t)
   (org-confirm-babel-evaluate nil))
 
-(setq org-agenda-files
+(defun my/refresh-agenda()
+  (interactive)
+  (setq org-agenda-files
       (directory-files-recursively "~/org/" "\\.org$"))
+  )
+
+(my/refresh-agenda)
 
 (setq org-agenda-include-diary t)
 ;; Redisplay images after execution
@@ -831,13 +849,13 @@ Only displays for text-like modes (text, org, markdown)."
 ;; BABEL LANGUAGES
 ;; ============================================================================
 
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((emacs-lisp . t)
-;;    (python . t)
-;;    (shell . t)
-;;    (js . t)
-;;    (sql . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)
+   (js . t)
+   (sql . t)))
 
 ;; ============================================================================
 ;; MODERN AGENDA VIEW
@@ -971,12 +989,12 @@ Only displays for text-like modes (text, org, markdown)."
   (display-line-numbers-mode 0)
   (olivetti-mode 1)
 	(setq olivetti-body-width 110)
-	(setq-local line-spacing 0.2)
-  (set-face-attribute 'default nil
-                      :font (font-spec
-                             :family "Noto Serif Display"
-                             :weight 'medium
-                             :size 16)))
+	(setq-local line-spacing 0.2))
+  ;; (set-face-attribute 'default nil
+  ;;                     :font (font-spec
+  ;;                            :family "Noto Serif Display"
+  ;;                            :weight 'medium
+  ;;                            :size 16)))
 
 (defun jetbrains ()
   "Starts jetbrains style"
