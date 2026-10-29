@@ -36,33 +36,6 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(defun sync-timeedit ()
-  (let ((url "https://cloud.timeedit.net/ju/web/open/ri607QeQ5q2Zb9Q5m68rn3Q6yZZ081Q1ZZQYcbu.ics")
-        (file "~/org/timeedit.ics"))
-    (url-copy-file url file t)
-    (message "TimeEdit calendar synced!")))
-
-;; Run sync whenever Emacs starts
-(add-hook 'after-init-hook #'my/sync-timeedit)
-
-(defun my/sync-timeedit ()
-  (interactive)
-  (url-copy-file "https://cloud.timeedit.net/ju/web/open/ri607QeQ5q2Zb9Q5m68rn3Q6yZZ081Q1ZZQYcbu.ics" 
-                 "~/org/timeedit.ics" t)
-  (message "TimeEdit synced!"))
-
-;; Add the file to your agenda list
-;;(add-to-list 'org-agenda-files "~/org/timeedit.ics")
-
-(require 'icalendar)
-(defun my/import-timeedit-to-calendar ()
-  (interactive)
-  (icalendar-import-file "~/org/timeedit.ics" "~/org/diary"))
-
-(setq diary-file "~/org/diary") ;; Or wherever you keep your
-(setq mark-diary-entries-in-calendar t)
-(add-hook 'diary-display-hook 'diary-fancy-display)
-
 (require 'package)
 
 ;; Add package archives
@@ -205,8 +178,6 @@
 ;;   (parrot-mode))
 
 (use-package doom-modeline
-  :init
-  (doom-modeline-mode)
   :custom
   ;; Optional tweaks
   (doom-modeline-height 18)
@@ -436,6 +407,14 @@
        :stream t
        :models '(qwen3:4b)))
 
+(setq gptel-model 'qwen2.5-coder:7b
+      gptel-backend
+      (gptel-make-ollama
+       "Ollama"
+       :host "localhost:11434"
+       :stream t
+       :models '(qwen2.5-coder:7b)))
+
   (use-package claude-code)
   (global-set-key (kbd "C-c c a") 'claude-code-transient)
 
@@ -508,6 +487,15 @@
   :ensure t
   :after calfw
   :ensure t)
+
+; languagetool --http
+(use-package langtool
+  :ensure t
+  :config
+  (setq langtool-java-classpath
+        "/usr/share/languagetool:/usr/share/java/languagetool/*")
+  (setq langtool-default-language "en-US")
+  (setq langtool-java-bin "/usr/bin/java"))
 
 ;; Treemacs
 ;; (global-set-key [f8] 'treemacs)
@@ -1025,6 +1013,29 @@ Only displays for text-like modes (text, org, markdown)."
   "Open emcas config in a new buffer."
   (interactive)
   (find-file (concat (getenv "HOME") "/.config/emacs/readme.org")))
+
+(use-package auctex
+  :ensure t
+  :defer t
+  :config
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil)
+
+  ;; Automatically refresh the PDF buffer after compilation.
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install)
+
+  (setq TeX-view-program-selection
+        '((output-pdf "PDF Tools"))))
+
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
 
 (defun my/system-update()
   (interactive)

@@ -122,38 +122,6 @@ The main entry point that loads all other configuration modules.
   (load custom-file))
 #+end_src
 
-* Calendar
-
-#+begin_src emacs-lisp :tangle ~/.config/emacs/init.el
-(defun sync-timeedit ()
-  (let ((url "https://cloud.timeedit.net/ju/web/open/ri607QeQ5q2Zb9Q5m68rn3Q6yZZ081Q1ZZQYcbu.ics")
-        (file "~/org/timeedit.ics"))
-    (url-copy-file url file t)
-    (message "TimeEdit calendar synced!")))
-
-;; Run sync whenever Emacs starts
-(add-hook 'after-init-hook #'my/sync-timeedit)
-
-(defun my/sync-timeedit ()
-  (interactive)
-  (url-copy-file "https://cloud.timeedit.net/ju/web/open/ri607QeQ5q2Zb9Q5m68rn3Q6yZZ081Q1ZZQYcbu.ics" 
-                 "~/org/timeedit.ics" t)
-  (message "TimeEdit synced!"))
-
-;; Add the file to your agenda list
-;;(add-to-list 'org-agenda-files "~/org/timeedit.ics")
-
-(require 'icalendar)
-(defun my/import-timeedit-to-calendar ()
-  (interactive)
-  (icalendar-import-file "~/org/timeedit.ics" "~/org/diary"))
-
-(setq diary-file "~/org/diary") ;; Or wherever you keep your
-(setq mark-diary-entries-in-calendar t)
-(add-hook 'diary-display-hook 'diary-fancy-display)
-#+end_src
-
-
 * Package Management (init.el)
 
 All package declarations and configurations.
@@ -734,6 +702,20 @@ All package declarations and configurations.
   :ensure t
   :after calfw
   :ensure t)
+#+end_src
+
+** Lanugage
+
+#+begin_src elisp :tangle ~/.config/emacs/init.el
+; languagetool --http
+(use-package langtool
+  :ensure t
+  :config
+  (setq langtool-java-classpath
+        "/usr/share/languagetool:/usr/share/java/languagetool/*")
+  (setq langtool-default-language "en-US")
+  (setq langtool-java-bin "/usr/bin/java"))
+
 #+end_src
 
 
