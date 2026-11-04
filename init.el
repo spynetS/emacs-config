@@ -171,12 +171,16 @@
   (setq lsp-ui-doc-enable t
         lsp-ui-sideline-enable t
         lsp-ui-sideline-show-code-actions t))
+;; (use-package company
+;;   :config
+;; 	(global-company-mode 1)
+;;   (setq company-minimum-prefix-length 1
+;;         company-idle-delay 0.0))
 
-(use-package company
-  :config
-	(global-company-mode 1)
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.0))
+(use-package corfu
+  :init
+  (global-corfu-mode)
+)
 
 (use-package java-snippets)
 
@@ -205,8 +209,6 @@
 ;;   (parrot-mode))
 
 (use-package doom-modeline
-  :init
-  (doom-modeline-mode)
   :custom
   ;; Optional tweaks
   (doom-modeline-height 18)
@@ -315,11 +317,11 @@
 ;;  (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line))
 
 
-(use-package company-web
-  :ensure t
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-web-html))
+;; (use-package company-web
+;;   :ensure t
+;;   :after company
+;;   :config
+;;   (add-to-list 'company-backends 'company-web-html))
 
 (use-package rainbow-delimiters)
 (use-package smartparens)
@@ -787,8 +789,6 @@ Only displays for text-like modes (text, org, markdown)."
       (directory-files-recursively "~/org/" "\\.org$"))
   )
 
-(my/refresh-agenda)
-
 (setq org-agenda-include-diary t)
 ;; Redisplay images after execution
 (setq org-redisplay-inline-images t)
@@ -819,8 +819,11 @@ Only displays for text-like modes (text, org, markdown)."
   (org-modern-block-name '("" . ""))
   (org-modern-keyword nil)
   (org-modern-timestamp t)
-  (org-modern-priority t))
+  (org-modern-priority t)
+  )
 
+  (setq org-format-latex-options
+      (plist-put org-format-latex-options :scale 1.2))
 ;; ============================================================================
 ;; ELEGANT FONTS
 ;; ============================================================================
@@ -1025,6 +1028,29 @@ Only displays for text-like modes (text, org, markdown)."
   "Open emcas config in a new buffer."
   (interactive)
   (find-file (concat (getenv "HOME") "/.config/emacs/readme.org")))
+
+(use-package auctex
+  :ensure t
+  :defer t
+  :config
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil)
+
+  ;; Automatically refresh the PDF buffer after compilation.
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install)
+
+  (setq TeX-view-program-selection
+        '((output-pdf "PDF Tools"))))
+
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
 
 (defun my/system-update()
   (interactive)
