@@ -623,13 +623,20 @@ All package declarations and configurations.
   (global-set-key (kbd "C-c c a") 'claude-code-transient)
 #+end_src
 ** Request
-#+begin_src emacs-lisp
-(request "http://httpbin.org/get"
-  :params '(("key" . "value") ("key2" . "value2"))
-  :parser 'json-read
-  :success (cl-function
-            (lambda (&key data &allow-other-keys)
-              (message "I sent: %S" (assoc-default 'args data)))))  
+#+begin_src emacs-lisp  :tangle ~/.config/emacs/init.el
+
+(defun my/json-view (data)
+  "Display DATA as formatted JSON in a dedicated buffer."
+  (let ((buffer (get-buffer-create "*API Response*")))
+    (with-current-buffer buffer
+      (let ((inhibit-read-only t))
+        (erase-buffer)
+        (insert (json-encode data))
+        (json-pretty-print-buffer)
+        (goto-char (point-min))
+        (js-json-mode)))
+    (display-buffer buffer)))
+
 #+end_src
 
 ** Shell
