@@ -151,9 +151,35 @@
 ;;         company-idle-delay 0.0))
 
 (use-package corfu
+  :ensure t
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-auto-prefix 2)
+  (corfu-cycle t)
+  (corfu-preselect 'prompt)
   :init
-  (global-corfu-mode)
-)
+  (global-corfu-mode))
+
+(use-package corfu-popupinfo
+  :ensure nil
+  :hook (corfu-mode . corfu-popupinfo-mode)
+  :custom
+  (corfu-popupinfo-delay '(0.5 . 0.2)))
+
+
+(with-eval-after-load 'corfu
+  (keymap-set corfu-map "TAB" #'corfu-next)
+  (keymap-set corfu-map "<backtab>" #'corfu-previous)
+  (keymap-set corfu-map "RET" #'corfu-insert))
+
+
+(use-package cape
+  :ensure t
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file))
+
 
 (use-package java-snippets)
 
@@ -285,16 +311,6 @@
   :config
   (setq emmet-expand-jsx-className? t) ;; Optional for React/JSX
   (setq emmet-move-cursor-between-quotes t))
-
-;;(with-eval-after-load 'emmet-mode
-;;  (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line))
-
-
-;; (use-package company-web
-;;   :ensure t
-;;   :after company
-;;   :config
-;;   (add-to-list 'company-backends 'company-web-html))
 
 (use-package rainbow-delimiters)
 (use-package smartparens)
@@ -638,9 +654,9 @@
                 (lambda () (interactive) (increment -1)))
 
 ;; (use-package mlscroll)
-(use-package good-scroll)
-;; (mlscroll-mode)
-(good-scroll-mode)
+;; (use-package good-scroll)
+;; ;; (mlscroll-mode)
+;; (good-scroll-mode)
 
 (setq inhibit-startup-message t  ; Don't show the splash screen
       visible-bell t)            ; Flash when the bell rings

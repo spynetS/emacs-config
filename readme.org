@@ -1085,6 +1085,10 @@ Only displays for text-like modes (text, org, markdown)."
   (org-return-follows-link t)
   (org-confirm-babel-evaluate nil))
 
+(add-hook 'pdf-view-mode-hook
+          (lambda ()
+            (display-line-numbers-mode -1)))
+
 (defun my/refresh-agenda()
   (interactive)
   (setq org-agenda-files
