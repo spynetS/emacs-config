@@ -438,6 +438,18 @@
   (use-package claude-code)
   (global-set-key (kbd "C-c c a") 'claude-code-transient)
 
+(defun my/json-view (data)
+  "Display DATA as formatted JSON in a dedicated buffer."
+  (let ((buffer (get-buffer-create "*API Response*")))
+    (with-current-buffer buffer
+      (let ((inhibit-read-only t))
+        (erase-buffer)
+        (insert (json-encode data))
+        (json-pretty-print-buffer)
+        (goto-char (point-min))
+        (js-json-mode)))
+    (display-buffer buffer)))
+
   (use-package esh-autosuggest
   :hook (eshell-mode . esh-autosuggest-mode)
   ;; If you have use-package-hook-name-suffix set to nil, uncomment and use the
