@@ -529,6 +529,23 @@
   (setq langtool-default-language "en-US")
   (setq langtool-java-bin "/usr/bin/java"))
 
+(use-package tex
+  :ensure auctex
+  :hook ((LaTeX-mode . TeX-source-correlate-mode)
+         (LaTeX-mode . TeX-PDF-mode))
+  :config
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+  ;; reload the PDF automatically after each compile
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+(use-package pdf-tools
+  :ensure t
+  :config (pdf-tools-install))
+
+(add-hook 'pdf-view-mode-hook 'auto-revert-mode)
+
 ;; Treemacs
 ;; (global-set-key [f8] 'treemacs)
 ;; (global-set-key (kbd "C-c o p") 'treemacs)
@@ -800,6 +817,10 @@ Only displays for text-like modes (text, org, markdown)."
   (org-src-preserve-indentation t)
   (org-return-follows-link t)
   (org-confirm-babel-evaluate nil))
+
+(add-hook 'pdf-view-mode-hook
+          (lambda ()
+            (display-line-numbers-mode -1)))
 
 (defun my/refresh-agenda()
   (interactive)

@@ -744,6 +744,27 @@ All package declarations and configurations.
 
 #+end_src
 
+** Latex
+#+begin_src elisp :tangle ~/.config/emacs/init.el
+
+(use-package tex
+  :ensure auctex
+  :hook ((LaTeX-mode . TeX-source-correlate-mode)
+         (LaTeX-mode . TeX-PDF-mode))
+  :config
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+  ;; reload the PDF automatically after each compile
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+(use-package pdf-tools
+  :ensure t
+  :config (pdf-tools-install))
+
+(add-hook 'pdf-view-mode-hook 'auto-revert-mode)
+
+#+end_src
 
 * Keybindings (init.el)
 
