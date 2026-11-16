@@ -529,6 +529,17 @@
   (setq langtool-default-language "en-US")
   (setq langtool-java-bin "/usr/bin/java"))
 
+(use-package overleaf
+  :ensure t
+  :custom
+  (overleaf-default-url "https://www.overleaf.com")
+  :config
+  (let ((cookie-file "~/.overleaf-cookies.gpg"))
+    (setq overleaf-save-cookies
+          (overleaf-save-cookies-to-file cookie-file))
+    (setq overleaf-cookies
+          (overleaf-read-cookies-from-file cookie-file))))
+
 (use-package tex
   :ensure auctex
   :hook ((LaTeX-mode . TeX-source-correlate-mode)
