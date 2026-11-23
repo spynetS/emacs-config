@@ -770,6 +770,16 @@ All package declarations and configurations.
 
 ** Latex
 #+begin_src elisp :tangle ~/.config/emacs/init.el
+(use-package overleaf
+  :ensure t
+  :custom
+  (overleaf-default-url "https://www.overleaf.com")
+  :config
+  (let ((cookie-file "~/.overleaf-cookies.gpg"))
+    (setq overleaf-save-cookies
+          (overleaf-save-cookies-to-file cookie-file))
+    (setq overleaf-cookies
+          (overleaf-read-cookies-from-file cookie-file))))
 
 (use-package tex
   :ensure auctex
