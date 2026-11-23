@@ -36,6 +36,27 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(use-package overleaf
+  :ensure t
+  :custom
+  (overleaf-use-nerdfont t)
+  (overleaf-default-url "https://overleaf.zwee.dev")
+  :config
+  ;; Store session cookies encrypted
+  (let ((cookie-file "~/.overleaf-cookies.gpg"))
+    (setq overleaf-save-cookies
+          (overleaf-save-cookies-to-file cookie-file))
+    (setq overleaf-cookies
+          (overleaf-read-cookies-from-file cookie-file))))
+
+;; Keybindings for built-in LaTeX mode
+(with-eval-after-load 'tex-mode
+  (keymap-set latex-mode-map "C-c o" overleaf-command-map))
+
+;; Keybindings for AUCTeX
+(with-eval-after-load 'latex
+  (keymap-set LaTeX-mode-map "C-c o" overleaf-command-map))
+
 (require 'package)
 
 ;; Add package archives
