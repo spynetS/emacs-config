@@ -550,17 +550,6 @@
   (setq langtool-default-language "en-US")
   (setq langtool-java-bin "/usr/bin/java"))
 
-(use-package overleaf
-  :ensure t
-  :custom
-  (overleaf-default-url "https://www.overleaf.com")
-  :config
-  (let ((cookie-file "~/.overleaf-cookies.gpg"))
-    (setq overleaf-save-cookies
-          (overleaf-save-cookies-to-file cookie-file))
-    (setq overleaf-cookies
-          (overleaf-read-cookies-from-file cookie-file))))
-
 (use-package tex
   :ensure auctex
   :hook ((LaTeX-mode . TeX-source-correlate-mode)
@@ -577,6 +566,7 @@
   :config (pdf-tools-install))
 
 (add-hook 'pdf-view-mode-hook 'auto-revert-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
 ;; Treemacs
 ;; (global-set-key [f8] 'treemacs)
@@ -850,6 +840,8 @@ Only displays for text-like modes (text, org, markdown)."
   (org-return-follows-link t)
   (org-confirm-babel-evaluate nil))
 
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'olivetti-mode)
 (add-hook 'pdf-view-mode-hook
           (lambda ()
             (display-line-numbers-mode -1)))
