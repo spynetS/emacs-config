@@ -550,6 +550,19 @@
   (setq langtool-default-language "en-US")
   (setq langtool-java-bin "/usr/bin/java"))
 
+(defun my/latex-live-preview-compile ()
+  (when (and (derived-mode-p 'latex-mode)
+             (buffer-file-name))
+    (TeX-command "LaTeX" 'TeX-master-file -1)))
+
+(define-minor-mode latex-live-preview-mode
+  "Automatically compile LaTeX after saving."
+  :lighter " LiveTeX"
+  (if latex-live-preview-mode
+      (add-hook 'after-save-hook
+                #'my/latex-live-preview-compile nil t)
+    (remove-hook 'after-save-hook
+                 #'my/latex-live-preview-compile t)))
 (use-package tex
   :ensure auctex
   :hook ((LaTeX-mode . TeX-source-correlate-mode)
